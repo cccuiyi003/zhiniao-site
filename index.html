@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory." />
+  <meta name="description" content="Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory." />
   <title>ZhiNiao International</title>
   <style>
     :root {
@@ -86,17 +86,6 @@
     .brand { display:flex; align-items:center; flex:0 0 auto; }
     .brand img { width:192px; height:auto; }
     .nav-actions { display:flex; align-items:center; gap:20px; }
-    .language-switcher { position:relative; }
-    .language { height:44px; padding:0 2px; border:0; background:transparent; display:inline-flex; align-items:center; justify-content:center; gap:6px; color:var(--ink-2); font-size:.95rem; line-height:1; white-space:nowrap; }
-    .language span { display:inline-flex; align-items:center; line-height:1; }
-    .language svg { width:12px; height:12px; display:block; flex:0 0 auto; transition:transform .18s ease; }
-    .language[aria-expanded="true"] svg { transform:rotate(180deg); }
-    .language:focus-visible, .language-option:focus-visible { outline:3px solid rgba(255,90,20,.22); outline-offset:3px; }
-    .language-menu { position:absolute; top:calc(100% + 8px); right:0; z-index:120; min-width:164px; padding:7px; border-radius:14px; background:rgba(255,255,255,.98); border:1px solid rgba(17,24,39,.10); box-shadow:0 18px 46px rgba(26,31,42,.16); }
-    .language-menu[hidden] { display:none; }
-    .language-option { width:100%; min-height:42px; padding:0 12px; border:0; border-radius:9px; background:transparent; color:var(--ink-2); display:flex; align-items:center; text-align:left; white-space:nowrap; }
-    .language-option:hover { background:rgba(255,90,20,.07); color:var(--ink); }
-    .language-option[aria-checked="true"] { color:var(--ink); font-weight:730; }
     .primary-btn, .secondary-btn {
       min-height: 48px; padding: 0 24px; border-radius: 12px; display:inline-flex; align-items:center; justify-content:center; gap:9px; font-weight:720; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
@@ -219,19 +208,19 @@
     .outcome-stage p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.52; }
 
     .roleplay-grid, .knowledge-grid { display:grid; grid-template-columns:.82fr 1.18fr; gap:70px; align-items:center; }
+    #roleplay .section-title, #knowledge .section-title { font-size:clamp(2rem,2.8vw,2.75rem); line-height:1.12; }
     .feature-list { margin-top:42px; display:grid; gap:14px; }
     .feature-line { display:flex; align-items:flex-start; gap:14px; color:var(--ink-2); }
     .feature-icon { flex:0 0 42px; width:42px; height:42px; border-radius:12px; background:var(--orange-soft); color:var(--orange); display:grid; place-items:center; border:1px solid rgba(255,90,20,.14); }
     .feature-line strong { display:block; margin:2px 0 4px; }
-    .feature-line span { color:var(--muted); font-size:.92rem; line-height:1.5; text-wrap:pretty; }
+    .feature-line span { display:block; color:var(--muted); font-size:.92rem; line-height:1.5; text-wrap:pretty; }
 
     .roleplay-stage { position:relative; padding:14px; border-radius:30px; background:rgba(255,255,255,.74); border:1px solid rgba(255,255,255,.95); box-shadow:var(--shadow); }
     .roleplay-stage img { border-radius:22px; width:100%; aspect-ratio:1.25/1; object-fit:cover; }
     .roleplay-stage .play-button { left:50%; top:50%; width:84px; height:84px; }
     .roleplay-stage .demo-progress { bottom:12%; left:8%; right:32%; }
-    .language-strip { margin-top:34px; display:flex; gap:8px; flex-wrap:nowrap; align-items:center; white-space:nowrap; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; }
-    .language-strip::-webkit-scrollbar { display:none; }
-    .language-strip .label { color:var(--muted); margin-right:4px; font-size:.86rem; flex:0 0 auto; }
+    .language-strip { margin-top:30px; display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .language-strip .label { color:var(--muted); margin-right:4px; font-size:.86rem; flex:0 0 auto; line-height:1.5; }
     .pill { padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.7); color:var(--ink-2); font-size:.82rem; flex:0 0 auto; }
 
     .knowledge-panel { position:relative; border-radius:28px; padding:34px; background:rgba(255,255,255,.76); border:1px solid rgba(255,255,255,.94); box-shadow:var(--shadow); overflow:hidden; }
@@ -331,9 +320,6 @@
       .container { width:min(100% - 28px, var(--container)); }
       .section { padding:88px 0; }
       .nav-actions { gap:10px; }
-      .language { display:inline-flex; width:48px; padding:0; font-size:0; }
-      .language span::after { content:attr(data-short-label); font-size:.78rem; }
-      .language-menu { right:-8px; min-width:150px; }
       .nav-actions .primary-btn { display:inline-flex; width:auto; padding:0 14px; min-height:42px; white-space:nowrap; font-size:.82rem; }
       .brand img { width:140px; }
       .hero { min-height:auto; padding-top:108px; padding-bottom:52px; }
@@ -395,6 +381,479 @@
       *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
       [data-reveal] { opacity:1; transform:none; }
     }
+
+    /* Company credentials, adapted from slide 1 of the supplied website deck. */
+    .company-section { background:#fffdf9; border-top:1px solid var(--line); padding:92px 0 96px; scroll-margin-top:var(--header-h); }
+    .company-head { max-width:1060px; margin:0 auto 44px; text-align:center; }
+    .company-head .eyebrow { margin-bottom:18px; }
+    .company-head .section-title { max-width:1060px; font-size:clamp(2.3rem,3.4vw,3.2rem); line-height:1.1; }
+    .company-head .section-copy { max-width:850px; margin:20px auto 0; font-size:1.02rem; line-height:1.65; }
+    .company-proof { display:grid; grid-template-columns: .95fr 1.25fr; gap:24px; align-items:stretch; }
+    .company-proof > * { min-width:0; }
+    .heritage-panel, .scale-panel { border-radius:var(--radius-lg); padding:32px; }
+    .heritage-panel { background:#f5f3ed; border:1px solid rgba(17,24,39,.05); display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .heritage-logo { width:172px; height:auto; mix-blend-mode:multiply; }
+    .heritage-caption { max-width:350px; margin:21px 0 24px; color:var(--ink-2); font-size:1rem; line-height:1.5; text-wrap:balance; }
+    .ranking-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); width:100%; gap:8px; }
+    .ranking { position:relative; padding:15px 20px 10px; min-height:122px; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; }
+    .ranking::before, .ranking::after { content:""; position:absolute; width:34px; height:105px; top:5px; background:center/contain no-repeat; pointer-events:none; }
+    .ranking::before { left:0; background-image:url('assets/laurel-left.png'); }
+    .ranking::after { right:0; background-image:url('assets/laurel-right.png'); }
+    .ranking strong { display:block; font-size:2.35rem; line-height:1.15; letter-spacing:-.045em; color:#90702d; font-weight:730; white-space:nowrap; }
+    .ranking sup { font-size:.95rem; vertical-align:super; letter-spacing:0; margin-left:1px; }
+    .ranking span { position:relative; max-width:100px; display:block; margin-top:8px; font-size:.68rem; line-height:1.45; color:var(--ink-2); }
+    .ranking-date { margin:8px 0 0; color:var(--muted); font-size:.7rem; }
+    .heritage-capabilities { width:100%; margin:20px 0 0; padding-top:12px; border-top:1px solid rgba(17,24,39,.10); }
+    .heritage-sectors { display:grid; grid-template-columns:1fr 1.15fr; gap:0; text-align:center; }
+    .heritage-sectors > span { padding:12px 8px; white-space:nowrap; color:var(--ink); font-size:1rem; font-weight:650; line-height:1.4; display:flex; align-items:center; justify-content:center; }
+    .heritage-sectors > span + span { border-left:1px solid rgba(17,24,39,.13); }
+    .heritage-tech { margin:12px 0 0; color:#8a7039; font-size:.8rem; font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px; }
+    .heritage-tech > span { font-size:1.05rem; }
+    .scale-panel { background:#fff2e9; border:1px solid rgba(255,90,20,.13); }
+    .scale-logo { width:170px; height:auto; }
+    .scale-copy { margin:18px 0 24px; color:var(--ink-2); font-size:.95rem; line-height:1.65; max-width:550px; }
+    .scale-reach { display:grid; grid-template-columns:1fr 1fr; gap:22px; padding-bottom:25px; border-bottom:1px solid rgba(255,90,20,.17); }
+    .reach-metric span { display:block; color:var(--muted); font-size:.75rem; margin-bottom:7px; }
+    .reach-metric strong { display:block; color:var(--orange); font-size:clamp(2rem,2.9vw,2.65rem); font-weight:730; letter-spacing:-.045em; line-height:1.1; white-space:nowrap; }
+    .reach-metric p { margin:7px 0 0; font-size:.85rem; color:var(--ink-2); }
+    .scale-metrics { display:grid; grid-template-columns:1fr 1fr; gap:24px 28px; margin:24px 0 0; }
+    .scale-metric dt { font-size:.76rem; color:var(--muted); margin-bottom:8px; line-height:1.4; }
+    .scale-metric dd { color:var(--ink); margin:0; font-size:1.9rem; line-height:1.1; letter-spacing:-.035em; font-weight:730; }
+    .scale-metric dd small { font-size:.82rem; font-weight:600; letter-spacing:0; margin-left:5px; color:var(--ink-2); }
+    .scale-date { margin:24px 0 0; font-size:.68rem; color:var(--muted); }
+    @media (max-width:1050px) {
+      .company-proof { grid-template-columns:1fr 1.1fr; gap:18px; }
+      .heritage-panel, .scale-panel { padding:26px 22px; }
+      .ranking { padding-left:14px; padding-right:14px; }
+      .ranking::before, .ranking::after { width:49px; }
+      .ranking strong { font-size:2rem; }
+      .ranking span { font-size:.64rem; }
+      .reach-metric strong { font-size:2rem; }
+    }
+    @media (max-width:760px) {
+      .company-section { padding:64px 0; }
+      .company-head { text-align:left; margin-bottom:30px; }
+      .company-head .section-title { font-size:clamp(2rem,7.8vw,2.7rem); line-height:1.12; }
+      .company-head .section-copy { font-size:.95rem; margin-top:18px; }
+      .company-proof { grid-template-columns:1fr; gap:18px; }
+      .heritage-panel, .scale-panel { padding:28px 22px; border-radius:22px; }
+      .heritage-caption { font-size:.95rem; }
+      .heritage-sectors > span { padding:12px 8px; white-space:normal; }
+      .ranking { min-height:126px; padding:15px 16px 10px; }
+      .ranking strong { font-size:2.05rem; }
+      .ranking::before, .ranking::after { width:28px; }
+      .ranking span { font-size:.66rem; }
+      .ranking-date { margin-bottom:0; }
+      .scale-copy { font-size:.9rem; }
+      .scale-reach { gap:12px; }
+      .reach-metric strong { font-size:clamp(1.7rem,6.5vw,2.3rem); }
+      .scale-metrics { gap:24px 16px; }
+      .scale-metric dd { font-size:1.7rem; }
+      .scale-metric dd small { font-size:.75rem; }
+    }
+
+    /* Solution overview: copy preserved from 官网9页.pptx, page 2. */
+    .solution-section { background:var(--section-peach); border-top:1px solid rgba(17,24,39,.05); scroll-margin-top:var(--header-h); padding:96px 0; }
+    .solution-head { max-width:1050px; margin:0 auto 42px; text-align:center; }
+    .solution-head .section-title { max-width:none; font-size:clamp(2.3rem,3.5vw,3.3rem); line-height:1.12; }
+    .solution-framework { background:#fffdf9; border:1px solid rgba(255,90,20,.13); border-radius:28px; overflow:hidden; }
+    .solution-outcome { margin:0; padding:25px 32px; background:var(--orange); color:#fff; text-align:center; font-size:clamp(1.2rem,2vw,1.6rem); line-height:1.3; font-weight:720; letter-spacing:-.018em; }
+    .solution-domain { display:grid; grid-template-columns:190px minmax(0,1fr); gap:28px; margin:0 30px; padding:25px 0; align-items:center; }
+    .solution-domain + .solution-domain { border-top:1px solid var(--line); }
+    .domain-label { display:flex; align-items:center; gap:12px; }
+    .domain-number { width:32px; height:32px; flex:0 0 32px; border-radius:50%; display:grid; place-items:center; background:var(--orange-soft); color:var(--orange); font-size:.8rem; font-weight:750; }
+    .domain-label h3 { font-size:1.02rem; line-height:1.35; margin:0; font-weight:730; letter-spacing:-.015em; }
+    .capability-requirement { margin:0; padding:12px 6px; color:var(--ink); text-align:center; font-size:.95rem; line-height:1.45; font-weight:650; }
+    .talent-journey { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:22px; list-style:none; margin:0; padding:0; }
+    .talent-journey li { position:relative; display:flex; align-items:center; justify-content:center; min-height:64px; min-width:0; font-size:.88rem; font-weight:650; line-height:1.45; padding:12px 6px; text-align:center; text-wrap:balance; }
+    .talent-journey li + li::before { content:"›"; position:absolute; left:-17px; top:50%; transform:translateY(-50%); color:#ffb18a; font-size:1.8rem; line-height:1; font-weight:400; }
+    .knowledge-chain { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; list-style:none; margin:0; padding:0; }
+    .knowledge-chain li { padding:16px 12px; border-radius:12px; background:var(--orange-soft); border:1px solid rgba(255,90,20,.1); color:var(--orange-deep); font-size:.9rem; font-weight:650; line-height:1.4; text-align:center; }
+    .enabling-grid { display:grid; gap:12px; }
+    .enabling-row { display:grid; grid-template-columns:146px minmax(0,1fr); gap:14px; align-items:center; }
+    .enabling-row h4 { margin:0; font-size:.81rem; line-height:1.45; color:var(--muted); font-weight:650; }
+    .enabling-values { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; list-style:none; margin:0; padding:0; }
+    .enabling-values li { min-width:0; min-height:58px; padding:12px 9px; border-radius:10px; background:var(--section-stone); text-align:center; align-content:center; font-size:.79rem; line-height:1.4; font-weight:600; }
+    .trust-row .enabling-values li { background:#fff2e8; }
+    @media (max-width:1050px) {
+      .solution-domain { grid-template-columns:150px minmax(0,1fr); gap:22px; margin:0 24px; }
+      .enabling-row { grid-template-columns:1fr; gap:8px; }
+      .talent-journey { gap:14px; }
+      .talent-journey li { font-size:.8rem; padding:10px 0; }
+      .talent-journey li + li::before { left:-12px; }
+    }
+    @media (max-width:760px) {
+      .solution-section { padding:64px 0; }
+      .solution-head { text-align:left; margin-bottom:28px; }
+      .solution-head .section-title { font-size:clamp(2rem,7.8vw,2.7rem); }
+      .solution-framework { border-radius:22px; }
+      .solution-outcome { padding:22px 20px; text-align:left; font-size:1.2rem; }
+      .solution-domain { grid-template-columns:1fr; gap:18px; margin:0 20px; padding:24px 0; }
+      .domain-label h3 { font-size:1.05rem; }
+      .capability-requirement { font-size:.95rem; padding:14px 16px; }
+      .talent-journey { grid-template-columns:1fr; gap:0; padding-left:15px; border-left:1px solid rgba(255,90,20,.25); }
+      .talent-journey li { justify-content:flex-start; min-height:44px; text-align:left; padding:10px 0 10px 10px; font-size:.92rem; }
+      .talent-journey li::after { content:""; position:absolute; top:18px; left:-19px; width:7px; height:7px; border-radius:50%; background:var(--orange); }
+      .talent-journey li + li::before { display:none; }
+      .knowledge-chain { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+      .knowledge-chain li { font-size:.86rem; padding:14px 10px; }
+      .enabling-grid { gap:20px; }
+      .enabling-row { gap:10px; }
+      .enabling-values { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+      .enabling-values li { font-size:.8rem; min-height:60px; }
+    }
+
+    /* Compact P3 content within the existing workflow and localization styles. */
+    #workflow .workflow-title { max-width:none; font-size:clamp(2.3rem,3.6vw,3.5rem); line-height:1.1; }
+    #workflow .workflow-head .section-copy { margin-top:18px; font-size:1.05rem; }
+    #workflow .local-grid { margin-top:44px; }
+    #workflow .local-card { padding:26px; min-height:0; }
+    #workflow .local-card h3 { margin:14px 0 10px; font-size:1.2rem; }
+    #workflow .local-card > p { font-size:.9rem; }
+    #workflow .lang-chips { gap:6px; margin-top:12px; }
+    #workflow .lang-chip { padding:7px 8px; font-size:.74rem; }
+    #workflow .base-languages { flex-wrap:nowrap; gap:6px; }
+    #workflow .base-languages .lang-chip { padding:7px 6px; font-size:.72rem; white-space:nowrap; }
+    @media (max-width:1060px) {
+      #workflow .local-card { min-height:0; }
+    }
+    @media (max-width:760px) {
+      #workflow .workflow-title { font-size:clamp(2rem,8vw,2.7rem); }
+      #workflow .local-grid { margin-top:32px; }
+      #workflow .local-card { padding:22px; }
+      #workflow .base-languages { flex-wrap:wrap; }
+    }
+
+    /* P6–P9: page-specific layouts use the existing site's color and spacing tokens. */
+    .extension-section { padding:96px 0; border-top:1px solid rgba(17,24,39,.05); scroll-margin-top:var(--header-h); }
+    .extension-head { max-width:1050px; margin:0 auto 42px; text-align:center; }
+    .extension-head .section-title { max-width:none; font-size:clamp(2rem,2.8vw,2.75rem); line-height:1.12; }
+    .extension-head .section-copy { margin:22px auto 0; max-width:860px; font-size:1.02rem; line-height:1.7; }
+    .trust-section { background:var(--section-peach); }
+    .trust-grid { display:grid; grid-template-columns:1fr 1fr 1.08fr; gap:24px; align-items:stretch; }
+    .trust-column { min-width:0; display:flex; flex-direction:column; }
+    .trust-column > h3 { min-height:38px; margin:0 0 18px; font-size:.95rem; line-height:1.4; text-align:center; color:var(--ink-2); font-weight:700; }
+    .trust-risk-list { display:grid; gap:12px; flex:1; }
+    .trust-risk { padding:20px; background:#fffdf9; border:1px solid rgba(17,24,39,.08); border-radius:16px; }
+    .trust-risk h4 { margin:0 0 9px; font-size:.95rem; line-height:1.4; }
+    .trust-risk p { margin:0; font-size:.8rem; line-height:1.6; color:var(--muted); }
+    .trust-core { flex:1; border:1px solid rgba(255,90,20,.18); border-radius:24px; background:#fff7f1; display:grid; align-content:center; gap:0; padding:10px 24px; }
+    .trust-core-item { padding:23px 0; text-align:center; }
+    .trust-core-item + .trust-core-item { border-top:1px solid rgba(255,90,20,.15); }
+    .trust-core-item h4 { margin:0 0 9px; color:var(--orange); font-size:1.55rem; font-weight:730; letter-spacing:-.025em; }
+    .trust-core-item p { margin:0 auto; max-width:250px; font-size:.86rem; line-height:1.55; color:var(--ink-2); }
+    .trust-deliveries { flex:1; border-radius:24px; padding:7px 24px; background:#fffdf9; border:1px solid rgba(17,24,39,.08); display:grid; align-content:center; }
+    .trust-delivery { position:relative; padding:19px 0 19px 22px; }
+    .trust-delivery::before { content:""; position:absolute; top:25px; left:0; width:6px; height:6px; background:var(--orange); border-radius:50%; }
+    .trust-delivery + .trust-delivery { border-top:1px solid var(--line); }
+    .trust-delivery h4 { margin:0 0 7px; font-size:.95rem; line-height:1.35; }
+    .trust-delivery p { margin:0; color:var(--muted); font-size:.8rem; line-height:1.55; }
+    .trust-foundation { margin-top:30px; padding:24px 0 0; border-top:1px solid rgba(255,90,20,.17); }
+    .trust-foundation h3 { margin:0 0 16px; font-size:.94rem; color:var(--ink-2); font-weight:650; }
+    .security-layers { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:10px; }
+    .security-layers li { min-width:0; text-align:center; padding:13px 10px; align-content:center; border:1px solid rgba(17,24,39,.08); border-radius:10px; background:rgba(255,255,255,.75); font-size:.74rem; line-height:1.4; color:var(--ink-2); }
+    .enablers-section { background:var(--section-stone); }
+    .enabler-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; }
+    .enabler-card { padding:30px; min-width:0; border-radius:24px; background:#fffdf9; border:1px solid rgba(17,24,39,.07); display:flex; flex-direction:column; }
+    .enabler-index { color:var(--orange); font-size:.85rem; font-weight:750; letter-spacing:.03em; margin-bottom:24px; }
+    .enabler-card h3 { margin:0; color:var(--orange); font-size:1.55rem; line-height:1.22; letter-spacing:-.02em; text-wrap:balance; }
+    .enabler-card h4 { margin:24px 0 0; font-size:1rem; line-height:1.55; color:var(--ink); }
+    .enabler-card ul { list-style:none; margin:22px 0 0; padding:20px 0 0; border-top:1px solid var(--line); display:grid; gap:16px; }
+    .enabler-card li { position:relative; padding-left:17px; font-size:.9rem; line-height:1.65; color:var(--muted); }
+    .enabler-card li::before { content:""; position:absolute; left:0; top:10px; width:5px; height:5px; border-radius:50%; background:#ff9d6f; }
+    .platform-section { background:var(--section-blush); }
+    .platform-service { padding:22px 0 0; border-top:1px solid rgba(255,90,20,.2); text-align:center; }
+    .platform-service h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .platform-service p { margin:0; font-size:clamp(1.05rem,1.8vw,1.45rem); line-height:1.5; letter-spacing:-.015em; font-weight:700; color:var(--orange-deep); }
+    .platform-grid { display:grid; grid-template-columns:1fr 1.15fr; gap:40px; align-items:center; }
+    .platform-feature-list { display:grid; gap:0; }
+    .platform-feature { padding:24px 0; }
+    .platform-feature:first-child { padding-top:0; }
+    .platform-feature:last-child { padding-bottom:0; }
+    .platform-feature + .platform-feature { border-top:1px solid rgba(17,24,39,.09); }
+    .platform-feature h3 { margin:0 0 12px; font-size:1.22rem; line-height:1.4; color:var(--ink); letter-spacing:-.015em; }
+    .platform-feature p { margin:0; color:var(--muted); font-size:.94rem; line-height:1.7; }
+    .platform-map { min-width:0; margin:0; }
+    .platform-map img { width:100%; height:auto; object-fit:contain; }
+    .platform-map figcaption { position:relative; margin:-4.5% 8% 0; color:var(--muted); font-size:.64rem; line-height:1.6; }
+    .platform-statement { position:relative; margin:40px 0 0; padding:30px 80px; border-top:1px solid rgba(255,90,20,.18); border-bottom:1px solid rgba(255,90,20,.18); text-align:center; }
+    .platform-statement > p { margin:0 auto 22px; max-width:1000px; font-size:1.03rem; line-height:1.65; color:var(--ink-2); }
+    .platform-statement > img { position:absolute; width:48px; height:auto; opacity:.85; }
+    .platform-statement .quote-open { top:34px; left:8px; }
+    .platform-statement .quote-close { bottom:32px; right:8px; }
+    .industries-section { background:#fffdf9; }
+    .industry-list { display:grid; gap:14px; }
+    .industry-row { display:grid; grid-template-columns:170px 230px minmax(0,1fr); gap:28px; align-items:center; padding:22px 28px; border:1px solid rgba(17,24,39,.08); border-radius:18px; background:#f7f6f2; }
+    .industry-row:nth-child(even) { background:#fff3eb; }
+    .industry-row h3 { margin:0; color:var(--ink); font-size:1.1rem; line-height:1.35; letter-spacing:-.015em; }
+    .industry-row p { margin:0; padding-left:28px; border-left:1px solid rgba(17,24,39,.10); font-size:.91rem; line-height:1.65; color:var(--ink-2); }
+    .industry-logos { display:flex; gap:12px; align-items:center; justify-content:center; }
+    .client-logo { width:104px; height:68px; padding:6px; overflow:hidden; display:flex; justify-content:center; align-items:center; border-radius:10px; background:#fff; flex:0 0 104px; }
+    .client-logo img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+    .client-logo.pingan img { max-width:none; max-height:none; width:230px; height:auto; flex:0 0 230px; }
+    @media (max-width:1060px) {
+      .trust-grid { gap:16px; }
+      .trust-core, .trust-deliveries { padding-left:18px; padding-right:18px; }
+      .enabler-grid { gap:16px; }
+      .enabler-card { padding:24px; }
+      .platform-grid { grid-template-columns:1fr 1fr; gap:26px; }
+      .industry-row { grid-template-columns:150px 180px minmax(0,1fr); gap:18px; padding:20px; }
+      .industry-logos { gap:8px; }
+      .client-logo { width:85px; flex-basis:85px; height:62px; }
+      .industry-row p { padding-left:18px; }
+      .security-layers { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    }
+    @media (max-width:760px) {
+      .extension-section { padding:64px 0; }
+      .extension-head { text-align:left; margin-bottom:30px; }
+      .extension-head .section-title { font-size:clamp(2rem,8vw,2.4rem); }
+      .extension-head .section-copy { font-size:.95rem; margin-top:20px; }
+      .trust-grid, .enabler-grid, .platform-grid { grid-template-columns:1fr; gap:24px; }
+      .trust-column > h3 { min-height:0; text-align:left; margin-bottom:14px; }
+      .trust-core { grid-template-columns:1fr; }
+      .trust-core-item { text-align:left; padding:20px 0; }
+      .trust-core-item p { margin:0; max-width:none; }
+      .security-layers { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+      .trust-foundation h3 { line-height:1.5; }
+      .enabler-card { padding:26px 24px; }
+      .enabler-index { margin-bottom:18px; }
+      .enabler-card h3 { font-size:1.45rem; }
+      .enabler-card h4 { margin-top:20px; }
+      .platform-service { padding:20px 0 0; text-align:left; }
+      .platform-service h3 { font-size:1.1rem; }
+      .platform-statement { margin-top:32px; padding:40px 0; text-align:left; }
+      .platform-statement > p { font-size:.95rem; }
+      .platform-statement > img { width:30px; }
+      .platform-statement .quote-open { top:10px; left:0; }
+      .platform-statement .quote-close { bottom:10px; right:0; }
+      .platform-service p { font-size:1.1rem; }
+      .platform-feature h3 { font-size:1.15rem; }
+      .platform-map figcaption { margin:-4.5% 9% 0; }
+      .industry-row { grid-template-columns:1fr; gap:18px; padding:24px; border-radius:20px; }
+      .industry-logos { justify-content:flex-start; }
+      .client-logo { width:112px; height:70px; flex-basis:112px; }
+      .industry-row p { padding:18px 0 0; border-left:0; border-top:1px solid var(--line); }
+    }
+
+    /* Refined company credentials and solution hierarchy. */
+    .company-proof { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .heritage-panel, .scale-panel { position:relative; overflow:hidden; isolation:isolate; box-shadow:0 8px 28px rgba(50,35,20,.025), inset 0 1px 0 rgba(255,255,255,.8); }
+    .heritage-panel { border-color:rgba(144,112,45,.19); background:radial-gradient(ellipse at 100% 0,rgba(215,192,139,.12),transparent 60%),#f5f3ed; }
+    .scale-panel { border-color:rgba(255,90,20,.22); background:radial-gradient(ellipse at 100% 0,rgba(255,169,114,.12),transparent 58%),#fff2e9; }
+    .heritage-panel::after, .scale-panel::after { content:""; position:absolute; z-index:-1; pointer-events:none; width:180px; height:180px; border:1px solid; border-radius:50%; top:-110px; right:-66px; box-shadow:0 0 0 18px,0 0 0 36px; opacity:.045; }
+    .heritage-panel::after { color:#90702d; }
+    .scale-panel::after { color:var(--orange); }
+    .ranking { min-height:138px; padding:10px 22px 12px; justify-content:center; }
+    .ranking::before, .ranking::after { width:62px; height:100px; top:14px; background-size:contain; }
+    .ranking::before { left:-12px; }
+    .ranking::after { right:-12px; }
+    .ranking strong { position:relative; display:inline-block; padding:0; line-height:1.15; font-variant-numeric:lining-nums; }
+    .ranking sup { position:absolute; left:100%; top:.2em; font-size:.85rem; line-height:1; margin-left:2px; }
+    .ranking span { max-width:112px; margin-top:10px; }
+    .ranking-date { margin-top:4px; }
+    .heritage-capabilities { margin-top:auto; padding-top:20px; }
+    .heritage-sectors { position:relative; grid-template-columns:1fr 1fr; }
+    .heritage-sectors::after { content:""; position:absolute; left:50%; top:9px; bottom:9px; width:1px; background:rgba(17,24,39,.15); }
+    .heritage-sectors > span { padding:12px 4px; font-size:.94rem; letter-spacing:-.025em; }
+    .heritage-sectors > span + span { border-left:0; }
+    .heritage-tech { min-height:58px; margin-top:14px; padding:14px 10px; width:100%; border:1px solid rgba(144,112,45,.2); border-radius:14px; background:linear-gradient(110deg,rgba(210,186,130,.10),rgba(255,255,255,.55)); font-size:1.05rem; font-weight:700; letter-spacing:-.015em; }
+    .heritage-tech > span { font-size:1.25rem; }
+    .solution-head { margin-bottom:32px; }
+    .solution-head .section-title { font-size:clamp(2.2rem,3.1vw,3rem); }
+    .solution-framework { border-color:rgba(255,90,20,.19); box-shadow:0 12px 40px rgba(85,46,20,.035); }
+    .solution-outcome { padding:22px 30px; font-size:clamp(1.15rem,1.8vw,1.45rem); background:linear-gradient(110deg,#ff651c,#ff5713); }
+    .solution-domain { grid-template-columns:180px minmax(0,1fr); gap:24px; margin:0 28px; padding:22px 0; }
+    .domain-label { gap:10px; }
+    .domain-number { border:1px solid rgba(255,90,20,.15); background:#fff4ed; width:34px; height:34px; flex-basis:34px; }
+    .domain-label h3 { font-size:.98rem; }
+    .talent-journey { gap:20px; }
+    .talent-journey li { min-height:68px; border:1px solid rgba(17,24,39,.075); border-radius:12px; background:#faf9f6; font-size:.82rem; padding:12px 8px; }
+    .talent-journey li + li::before { left:-15px; font-size:1.5rem; color:#f59b6e; }
+    .knowledge-chain { gap:12px; }
+    .knowledge-chain li { display:grid; align-content:center; min-height:58px; padding:14px 10px; font-size:.85rem; background:#fff5ee; border-color:rgba(255,90,20,.14); }
+    .enabling-row { grid-template-columns:132px minmax(0,1fr); gap:12px; }
+    .enabling-row h4 { font-size:.77rem; }
+    .enabling-values { gap:8px; }
+    .enabling-values li { border:1px solid rgba(17,24,39,.05); border-radius:10px; min-height:56px; padding:12px 8px; font-size:.76rem; background:#f5f5f1; }
+    .trust-row .enabling-values li { border-color:rgba(255,90,20,.08); background:#fff4eb; }
+    @media (max-width:1050px) and (min-width:761px) {
+      .heritage-sectors > span { font-size:.8rem; white-space:normal; }
+      .ranking::before, .ranking::after { width:49px; }
+      .ranking span { font-size:.61rem; }
+      .solution-domain { grid-template-columns:150px minmax(0,1fr); gap:18px; margin:0 22px; }
+      .enabling-row { grid-template-columns:1fr; }
+      .talent-journey { gap:14px; }
+      .talent-journey li { padding:10px 4px; font-size:.77rem; }
+      .talent-journey li + li::before { left:-12px; }
+    }
+    @media (max-width:760px) {
+      .heritage-capabilities { margin-top:20px; }
+      .heritage-sectors > span { font-size:.9rem; white-space:normal; }
+      .heritage-tech { font-size:1.05rem; min-height:56px; }
+      .ranking { min-height:138px; padding:10px 16px 12px; }
+      .company-proof { grid-template-columns:1fr; }
+      .ranking::before, .ranking::after { width:43px; height:90px; top:21px; }
+      .ranking::before { left:-9px; }
+      .ranking::after { right:-9px; }
+      .ranking sup { font-size:.72rem; }
+      .ranking span { font-size:.62rem; }
+      .solution-head .section-title { font-size:clamp(2rem,7.8vw,2.7rem); }
+      .solution-domain { grid-template-columns:1fr; gap:16px; margin:0 20px; padding:24px 0; }
+      .domain-label h3 { font-size:1.05rem; }
+      .solution-outcome { padding:22px 20px; text-align:left; font-size:1.2rem; }
+      .enabling-row { grid-template-columns:1fr; gap:10px; }
+      .talent-journey { gap:8px; border-left:0; padding:0; }
+      .talent-journey li { justify-content:flex-start; min-height:50px; padding:14px 16px 14px 30px; text-align:left; font-size:.9rem; }
+      .talent-journey li::after { left:14px; top:21px; width:5px; height:5px; }
+      .knowledge-chain { gap:10px; }
+      .enabling-values { gap:8px; }
+      .enabling-row h4 { font-size:.82rem; }
+      .enabling-values li { min-height:60px; font-size:.8rem; }
+    }
+
+    /* A four-layer platform architecture, with a dedicated foundation. */
+    .solution-section { background:radial-gradient(ellipse at 88% 10%,rgba(255,171,116,.1),transparent 46%),#fff5ed; }
+    .solution-head { max-width:1060px; margin-bottom:38px; }
+    .solution-head .section-title { font-size:clamp(2.1rem,3vw,2.8rem); text-wrap:balance; }
+    .solution-framework { overflow:visible; display:grid; gap:14px; background:transparent; border:0; border-radius:0; box-shadow:none; }
+    .solution-outcome { position:relative; overflow:hidden; padding:24px 60px; border-radius:20px; background:linear-gradient(110deg,#ff6c21,#ee4e0d); box-shadow:0 8px 20px rgba(233,80,10,.12); }
+    .solution-outcome::before, .solution-outcome::after { content:""; position:absolute; width:180px; height:180px; border:1px solid rgba(255,255,255,.17); border-radius:50%; right:-35px; top:-70px; pointer-events:none; }
+    .solution-outcome::after { width:130px; height:130px; top:-45px; right:-10px; }
+    .solution-domain { position:relative; grid-template-columns:182px minmax(0,1fr); gap:26px; margin:0; padding:24px 26px; background:#fffdf9; border:1px solid rgba(150,91,42,.12); border-radius:20px; box-shadow:0 4px 16px rgba(70,43,20,.025); }
+    .solution-domain + .solution-domain { border-top:1px solid rgba(150,91,42,.12); }
+    .solution-domain::before { content:""; position:absolute; top:-15px; left:50%; width:1px; height:14px; background:rgba(221,110,48,.32); }
+    .domain-label { gap:12px; }
+    .domain-number { width:36px; height:36px; flex-basis:36px; border-radius:11px; background:var(--orange); color:white; border:1px solid var(--orange); box-shadow:0 3px 8px rgba(255,90,20,.12); }
+    .domain-label h3 { font-size:1.02rem; line-height:1.4; }
+    .capability-requirement { padding:14px 0; text-align:left; font-size:1rem; font-weight:650; line-height:1.6; }
+    .talent-journey { gap:22px; }
+    .talent-journey li { flex-direction:column; justify-content:flex-start; gap:12px; min-height:102px; padding:12px 6px; border:0; background:transparent; font-size:.85rem; }
+    .solution-node-icon { width:38px; height:38px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:var(--orange); background:#fff0e5; border:1px solid rgba(255,90,20,.16); border-radius:11px; }
+    .solution-node-icon svg { width:22px; height:22px; }
+    .talent-journey li + li::before { content:""; width:calc(100% - 38px); height:1px; background:linear-gradient(90deg,#ffd1b8,#f5ab82); top:31px; left:calc(-50% + 10px); transform:none; }
+    .knowledge-chain { gap:12px; }
+    .knowledge-chain li { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; min-height:100px; padding:16px 10px; background:#fff6ed; font-size:.86rem; border-radius:14px; }
+    .knowledge-chain .solution-node-icon { background:transparent; border:0; width:30px; height:30px; }
+    .knowledge-chain .solution-node-icon svg { width:25px; height:25px; }
+    .solution-domain:last-child { background:#202a39; border-color:#202a39; box-shadow:0 8px 22px rgba(17,24,39,.08); }
+    .solution-domain:last-child .domain-label h3 { color:#fff; }
+    .solution-domain:last-child .domain-number { background:#354252; border-color:#526070; color:#ffc197; box-shadow:none; }
+    .enabling-grid { gap:12px; }
+    .enabling-row { grid-template-columns:128px minmax(0,1fr); gap:12px; }
+    .enabling-row h4 { color:#c4ccd5; font-size:.77rem; }
+    .enabling-values li, .trust-row .enabling-values li { color:#f6f8fa; background:#2b3747; border-color:#3b4858; font-weight:500; font-size:.77rem; }
+    .trust-row .enabling-values li { color:#ffe0c7; border-color:#715a48; background:#3a3b3d; }
+    @media (max-width:1050px) and (min-width:761px) {
+      .solution-domain { grid-template-columns:154px minmax(0,1fr); gap:18px; padding:22px; }
+      .talent-journey { gap:12px; }
+      .talent-journey li { font-size:.78rem; }
+      .enabling-row { grid-template-columns:1fr; gap:8px; }
+    }
+    @media (max-width:760px) {
+      .solution-head .section-title { font-size:clamp(2rem,7.8vw,2.7rem); }
+      .solution-domain { grid-template-columns:1fr; gap:18px; padding:24px 20px; }
+      .solution-outcome { padding:24px 22px; border-radius:20px; }
+      .capability-requirement { padding:0; text-align:left; font-size:.95rem; }
+      .talent-journey { gap:14px; }
+      .talent-journey li { flex-direction:row; justify-content:flex-start; min-height:44px; padding:0; font-size:.9rem; gap:14px; }
+      .talent-journey li::after { display:none; }
+      .talent-journey li + li::before { display:block; width:1px; height:14px; top:-14px; left:18px; }
+      .knowledge-chain { gap:10px; }
+      .knowledge-chain li { min-height:112px; font-size:.84rem; }
+      .enabling-row { grid-template-columns:1fr; gap:10px; }
+      .enabling-row h4 { font-size:.82rem; }
+      .enabling-values li { font-size:.8rem; }
+    }
+
+    /* Industry proof as five equally weighted editorial cards. */
+    .industries-section { background:linear-gradient(180deg,#fffdf9,#faf8f3); }
+    .industries-section .extension-head { max-width:1000px; margin-bottom:38px; }
+    .industry-list { grid-template-columns:repeat(5,minmax(0,1fr)); gap:16px; }
+    .industry-row, .industry-row:nth-child(even) { position:relative; display:flex; flex-direction:column; align-items:stretch; gap:0; padding:24px 20px; border-radius:20px; background:linear-gradient(160deg,#fff4ea 0,#fffdf9 42%); border:1px solid rgba(156,104,57,.15); box-shadow:0 8px 26px rgba(58,38,15,.035); }
+    .industry-card-heading { min-height:52px; }
+    .industry-icon { display:grid; place-items:center; width:40px; height:40px; margin-bottom:18px; border:1px solid rgba(255,90,20,.18); border-radius:12px; color:var(--orange); background:rgba(255,255,255,.75); }
+    .industry-icon svg { width:23px; height:23px; }
+    .industry-row h3 { font-size:1.1rem; line-height:1.35; }
+    .industry-logos { justify-content:flex-start; gap:8px; padding:20px 0; min-height:100px; margin-top:10px; }
+    .industry-row .client-logo { width:calc((100% - 8px)/2); flex:0 1 calc((100% - 8px)/2); height:62px; padding:5px; border:1px solid rgba(17,24,39,.045); border-radius:9px; }
+    .industry-row .client-logo.pingan img { width:190px; flex-basis:190px; }
+    .industry-row p { margin:0; padding:20px 0 0; border-left:0; border-top:1px solid rgba(156,104,57,.13); font-size:.88rem; line-height:1.75; color:var(--muted); }
+    .industry-row p strong { color:var(--orange-deep); font-weight:650; }
+    @media (max-width:1150px) and (min-width:761px) {
+      .industry-list { grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+      .industry-row { padding:26px; }
+      .industry-card-heading { min-height:0; display:flex; gap:16px; align-items:center; }
+      .industry-icon { margin:0; flex:0 0 40px; }
+      .industry-logos { margin-top:6px; min-height:90px; }
+      .industry-row .client-logo { width:100px; flex:0 0 100px; }
+      .industry-row:last-child { grid-column:1/-1; }
+    }
+    @media (max-width:760px) {
+      .industry-list { grid-template-columns:1fr; gap:18px; }
+      .industry-row { padding:24px; }
+      .industry-card-heading { min-height:0; display:flex; gap:16px; align-items:center; }
+      .industry-icon { margin:0; flex:0 0 40px; }
+      .industry-row h3 { font-size:1.15rem; }
+      .industry-logos { margin-top:6px; min-height:90px; }
+      .industry-row .client-logo { width:112px; flex:0 0 112px; height:70px; }
+      .industry-row p { font-size:.93rem; }
+    }
+
+    /* Three visible carousel positions: one focal case and two translucent previews. */
+    .industry-carousel { position:relative; }
+    .industry-viewport { overflow:hidden; padding:10px 0 26px; mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent); }
+    .industry-list { position:relative; display:block; min-height:300px; }
+    .industry-row, .industry-row:nth-child(even) { position:absolute; left:50%; top:0; width:min(600px,52%); display:flex; flex-direction:column; padding:30px 32px; background:#fffdf9; border:1px solid rgba(156,104,57,.17); box-shadow:0 8px 24px rgba(58,38,15,.025); transform:translateX(calc(-50% + var(--case-offset,0) * 105%)); opacity:0; transition:transform .6s cubic-bezier(.22,.61,.36,1),opacity .6s ease,border-color .6s ease; pointer-events:none; }
+    .industry-row.is-current { opacity:1; border-color:rgba(255,90,20,.28); box-shadow:0 10px 30px rgba(58,38,15,.055); z-index:2; }
+    .industry-row.is-adjacent { opacity:.28; z-index:1; }
+    .industry-card-heading { min-height:0; }
+    .industry-row h3 { font-size:1.3rem; line-height:1.4; }
+    .industry-logos { justify-content:flex-start; min-height:0; margin:18px 0 0; padding:0; gap:12px; }
+    .industry-row .client-logo { width:104px; flex:0 0 104px; height:66px; background:white; }
+    .industry-row .client-logo.pingan img { width:230px; flex-basis:230px; }
+    .industry-row p { margin-top:24px; padding-top:22px; font-size:1.08rem; line-height:1.75; color:var(--ink-2); }
+    .industry-controls { display:flex; align-items:center; justify-content:center; gap:20px; margin-top:12px; }
+    .industry-arrow, .industry-pause { border:1px solid var(--line); background:#fffdf9; color:var(--ink-2); width:36px; height:36px; display:grid; place-items:center; border-radius:50%; font-size:1.1rem; cursor:pointer; padding:0; }
+    .industry-pause { width:32px; height:32px; font-size:.85rem; }
+    .industry-dots { display:flex; gap:8px; }
+    .industry-dot { width:32px; height:32px; padding:14px 0; background:transparent; border:0; cursor:pointer; }
+    .industry-dot span { display:block; width:100%; height:3px; border-radius:4px; background:#d8d9dc; transition:background .3s; }
+    .industry-dot[aria-current="true"] span { background:var(--orange); }
+    .industry-controls button:focus-visible { outline:2px solid var(--orange); outline-offset:4px; }
+    @media (max-width:1150px) and (min-width:761px) { .industry-row { width:62%; padding:28px; } .industry-row:last-child { grid-column:auto; } }
+    @media (max-width:760px) {
+      .industry-viewport { margin:0 -12px; padding-bottom:22px; mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent); }
+      .industry-row, .industry-row:nth-child(even) { width:86%; padding:24px; border-radius:20px; }
+      .industry-card-heading { display:block; }
+      .industry-row h3 { font-size:1.18rem; }
+      .industry-row .client-logo { width:100px; flex-basis:100px; height:64px; }
+      .industry-row p { font-size:.98rem; margin-top:20px; padding-top:20px; }
+      .industry-controls { gap:10px; }
+      .industry-dots { gap:5px; }
+      .industry-dot { width:24px; }
+    }
+    @media (prefers-reduced-motion:reduce) { .industry-row { transition:none; } }
+
+    .industry-case-header { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:20px; }
+    .industry-case-header .industry-logos { margin:0; padding:0; gap:10px; }
+    .industry-case-header .client-logo { width:112px; flex-basis:112px; height:78px; padding:4px; }
+    .industry-case-header .client-logo.pingan img { width:250px; flex-basis:250px; }
+    .industry-row h3 { font-size:1.3rem; }
+    .industry-row p { margin-top:22px; padding-top:20px; }
+    .industry-controls { gap:0; margin-top:4px; }
+    @media (max-width:1050px) and (min-width:761px) {
+      .industry-case-header { gap:14px; }
+      .industry-case-header .client-logo { width:94px; flex-basis:94px; height:70px; }
+      .industry-row h3 { font-size:1.15rem; }
+    }
+    @media (max-width:760px) {
+      .industry-case-header { gap:10px; grid-template-columns:minmax(0,1fr) auto; }
+      .industry-case-header .industry-logos { gap:5px; }
+      .industry-case-header .client-logo { width:62px; flex-basis:62px; height:56px; padding:3px; }
+      .industry-case-header .client-logo.pingan img { width:145px; flex-basis:145px; }
+      .industry-row h3 { font-size:1rem; }
+      .industry-row p { font-size:.95rem; }
+    }
   </style>
 </head>
 <body>
@@ -404,16 +863,6 @@
         <img src="assets/pingan-zhiniao-bilingual-logo.png" alt="Zhiniao 知鸟" width="1112" height="334" decoding="async" />
       </a>
       <div class="nav-actions">
-        <div class="language-switcher">
-          <button class="language" id="languageToggle" type="button" aria-label="Language: English" aria-haspopup="menu" aria-expanded="false">
-            <span id="languageLabel" data-short-label="EN">English</span>
-            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <div class="language-menu" id="languageMenu" role="menu" aria-label="Select language" hidden>
-            <button class="language-option" type="button" role="menuitemradio" aria-checked="true" data-lang="en">English</button>
-            <button class="language-option" type="button" role="menuitemradio" aria-checked="false" data-lang="vi">Tiếng Việt</button>
-          </div>
-        </div>
         <a class="primary-btn" href="#demo">Book a Demo</a>
       </div>
     </div>
@@ -425,14 +874,14 @@
         <div data-reveal>
           <p class="eyebrow">An AI-Native Platform Built for Talent Development</p>
           <h1>People Inspire, AI Empowers</h1>
-          <p class="hero-copy">Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory.</p>
+          <p class="hero-copy">Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory.</p>
           <div class="hero-actions">
             <a class="primary-btn" href="#demo">Book a Demo <span aria-hidden="true">→</span></a>
             <a class="secondary-btn" href="#workflow">Explore the Platform</a>
           </div>
         </div>
 
-        <div class="video-teaser" data-reveal data-demo data-video-src="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/overview-en.mp4" data-video-src-vi="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/overview-vi.mp4" data-video-title="ZhiNiao International overview video">
+        <div class="video-teaser" data-reveal data-demo data-video-src="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/overview-en.mp4" data-video-title="ZhiNiao International overview video">
           <img src="assets/hero-workscene.png" alt="Professional workplace training scene" fetchpriority="high" decoding="async" />
           <div class="live-chip"><span class="live-dot"></span> Product demo</div>
           <button class="play-button" aria-label="Play ZhiNiao International overview video" data-play>
@@ -443,31 +892,135 @@
       </div>
     </section>
 
+    <section class="section company-section" id="about" aria-labelledby="companyTitle">
+      <div class="container">
+        <div class="company-head" data-reveal>
+          <p class="eyebrow section-label">About Zhiniao</p>
+          <h2 class="section-title" id="companyTitle">AI-enabled talent development, backed by Fortune Global 500 experience</h2>
+          <p class="section-copy">Incubated by Ping An, a Fortune Global 500 financial services and technology group, Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises.</p>
+        </div>
+        <div class="company-proof">
+          <article class="heritage-panel" data-reveal aria-label="Ping An group credentials">
+            <img class="heritage-logo" src="assets/pingan-group-logo.png" alt="Ping An — Expertise Creates Value" width="261" height="93" loading="lazy" decoding="async" />
+            <h3 class="heritage-caption">A global key player in integrated finance, healthcare and senior care</h3>
+            <div class="ranking-grid">
+              <div class="ranking"><strong>1<sup>st</sup></strong><span>Brand Finance Insurance 100 List</span></div>
+              <div class="ranking"><strong>27<sup>th</sup></strong><span>Forbes Global 2000 List</span></div>
+              <div class="ranking"><strong>47<sup>th</sup></strong><span>Fortune Global 500 List</span></div>
+            </div>
+            <p class="ranking-date">Rankings (2025)</p>
+            <div class="heritage-capabilities">
+              <div class="heritage-sectors"><span>Integrated Finance</span><span>Health and Senior Care</span></div>
+              <p class="heritage-tech"><span aria-hidden="true">✦</span> Technology Enablement</p>
+            </div>
+
+          </article>
+          <article class="scale-panel" data-reveal aria-label="Zhiniao scale and impact">
+            <img class="scale-logo" src="assets/pingan-zhiniao-bilingual-logo.png" alt="Zhiniao 知鸟" width="1112" height="334" loading="lazy" decoding="async" />
+            <p class="scale-copy">We help organizations build future-ready skills, align talent with business needs, and drive sustainable growth through AI-enabled talent development.</p>
+            <div class="scale-reach">
+              <div class="reach-metric"><span>Trusted by</span><strong>2,000+</strong><p>Enterprises</p></div>
+              <div class="reach-metric"><span>Reaching</span><strong>86 Million+</strong><p>Employees</p></div>
+            </div>
+            <dl class="scale-metrics">
+              <div class="scale-metric"><dt>Cumulative App Usage</dt><dd>2.7<small>Billion+</small></dd></div>
+              <div class="scale-metric"><dt>AI Coaching Sessions</dt><dd>160<small>Million+</small></dd></div>
+              <div class="scale-metric"><dt>Curated Courses</dt><dd>20,000+</dd></div>
+              <div class="scale-metric"><dt>Livestream Sessions</dt><dd>1.2<small>Billion+</small></dd></div>
+            </dl>
+            <p class="scale-date">Data as of September 2026</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section solution-section" id="solution" aria-labelledby="solutionTitle">
+      <div class="container">
+        <div class="solution-head" data-reveal>
+          <h2 class="section-title" id="solutionTitle">Zhiniao's Comprehensive <span style="white-space:nowrap">AI-Enabled</span> Talent Development Solution</h2>
+        </div>
+        <div class="solution-framework" data-reveal>
+          <p class="solution-outcome">Drive measurable business impact and sustainable growth</p>
+          <div class="solution-domain">
+            <div class="domain-label"><span class="domain-number" aria-hidden="true">1</span><h3>Capability Domain</h3></div>
+            <p class="capability-requirement">Capability requirements: Identify the enterprise's core AI capabilities</p>
+          </div>
+          <div class="solution-domain">
+            <div class="domain-label"><span class="domain-number" aria-hidden="true">2</span><h3>Talent Domain</h3></div>
+            <ol class="talent-journey">
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20v-2a6 6 0 0 1 12 0v2m2-12h5m-2.5-2.5v5"/></svg></span><span>Precision recruiting</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5C8 2 4 3 2 4v15c3-1 7-1 10 2 3-3 7-3 10-2V4c-3-1-7-2-10 1v16"/></svg></span><span>Personalized learning &amp; development</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 4 6 6-10 10H4v-6L14 4Zm-2 2 6 6M3 4h5M3 8h3"/></svg></span><span>Learning by doing</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11v9H4V4h11M8 11l4 4L22 5"/></svg></span><span>Outcome validation</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V9m8 11V4m8 16v-7M2 20h20"/></svg></span><span>Talent operations</span></li>
+            </ol>
+          </div>
+          <div class="solution-domain">
+            <div class="domain-label"><span class="domain-number" aria-hidden="true">3</span><h3>Knowledge Domain</h3></div>
+            <ol class="knowledge-chain">
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 15h8m-4-4v8m-3-3 3 3 3-3"/></svg></span><span>Knowledge extraction</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span>Knowledge management</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="5" r="3"/><circle cx="19" cy="19" r="3"/><path d="m8 11 8-5m-8 7 8 5"/></svg></span><span>Knowledge flow</span></li>
+              <li><span class="solution-node-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h11l5 5v13H4V3Zm11 0v5h5M8 15l3 3 6-7"/></svg></span><span>Knowledge application</span></li>
+            </ol>
+          </div>
+          <div class="solution-domain">
+            <div class="domain-label"><span class="domain-number" aria-hidden="true">4</span><h3>Enabling Mechanisms</h3></div>
+            <div class="enabling-grid">
+              <div class="enabling-row">
+                <h4>Organizational Enablers:</h4>
+                <ul class="enabling-values"><li>Corporate culture</li><li>Organizational mechanisms</li><li>AI leadership</li><li>Training courses</li></ul>
+              </div>
+              <div class="enabling-row trust-row">
+                <h4>Foundations of Trust:</h4>
+                <ul class="enabling-values"><li>Trustworthy data</li><li>Reliable execution</li><li>Governable tools</li><li>Business continuity</li></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section workflow-section" id="workflow">
       <div class="container">
         <div class="workflow-head" data-reveal>
-          <p class="eyebrow product-name">TalentForce</p>
-          <h2 class="section-title">Build an end-to-end talent development journey</h2>
-          <p class="section-copy">TalentForce connects learning, practice, assessment, administration, and analytics to support enterprise talent development.</p>
+          <p class="eyebrow product-name">Zhiniao Talentforce Global</p>
+          <h2 class="section-title workflow-title">Seamless, <span style="white-space:nowrap">End-to-end</span> Learning Solutions</h2>
+          <p class="section-copy">The 44 Core Modules</p>
         </div>
         <div class="workflow" id="workflowTrack">
-          <article class="workflow-card"><div class="step-dot">1</div><h3>Learning</h3><p>Create personalized learning paths based on each employee’s role and current capabilities.</p></article>
-          <article class="workflow-card"><div class="step-dot">2</div><h3>Practice</h3><p>Practice in realistic workplace simulations with AI Coach.</p></article>
-          <article class="workflow-card"><div class="step-dot">3</div><h3>Assess</h3><p>Manage question banks, exams, and results.</p></article>
-          <article class="workflow-card"><div class="step-dot">4</div><h3>Administer</h3><p>Manage users, roles, permissions, and organizational structures.</p></article>
-          <article class="workflow-card"><div class="step-dot">5</div><h3>Engage</h3><p>Keep learners on track with reminders and incentives.</p></article>
-          <article class="workflow-card"><div class="step-dot">6</div><h3>Analyze</h3><p>Track progress, performance, and learning outcomes.</p></article>
+          <article class="workflow-card"><div class="step-dot">1</div><h3>Learn</h3><p>Learning Map<br />Course Center<br />Learning Tasks</p></article>
+          <article class="workflow-card"><div class="step-dot">2</div><h3>Practice</h3><p>AI Coach<br />Course Center<br />Learning Tasks</p></article>
+          <article class="workflow-card"><div class="step-dot">3</div><h3>Assess</h3><p>Item Bank Management<br />Online Exams<br />Anti-Cheating</p></article>
+          <article class="workflow-card"><div class="step-dot">4</div><h3>Administer</h3><p>Organization Structure<br />Permission Management<br />Role Management</p></article>
+          <article class="workflow-card"><div class="step-dot">5</div><h3>Operate</h3><p>Message Delivery<br />Mini Posters<br />Credit Incentives</p></article>
+          <article class="workflow-card"><div class="step-dot">6</div><h3>Analyze</h3><p>Data Dashboard<br />Course Analysis<br />Exam Analysis</p></article>
         </div>
-        <div class="workflow-outcome" data-reveal>
-          <div>
-            <span class="summary-tag">An AI-native suite for talent development</span>
-            <h3>Drive measurable business impact and sustainable growth</h3>
-          </div>
-          <div class="outcome-stages">
-            <div class="outcome-stage"><span>01</span><strong>Create &amp; Deliver</strong><p>Transform content from multiple sources and formats into structured knowledge with AI WikiFactory.</p></div>
-            <div class="outcome-stage"><span>02</span><strong>Practice &amp; Assess</strong><p>Combine AI Coach simulations with question banks and assessments to validate learning outcomes.</p></div>
-            <div class="outcome-stage"><span>03</span><strong>Operate &amp; Improve</strong><p>Use learning progress and performance data to identify skill gaps and improve talent development.</p></div>
-          </div>
+        <div class="local-grid">
+          <article class="local-card" data-reveal>
+            <div class="feature-icon" aria-hidden="true">A</div>
+            <h3>Multi-language Dynamic Engine</h3>
+            <p><strong>Base Package: 3 Languages</strong></p>
+            <div class="lang-chips base-languages"><span class="lang-chip">Simplified Chinese</span><span class="lang-chip">English</span><span class="lang-chip">Traditional Chinese</span></div>
+            <p style="margin-top:20px"><strong>Optional Expansion Package: 10 Languages</strong></p>
+            <div class="lang-chips"><span class="lang-chip">Spanish</span><span class="lang-chip">Arabic</span><span class="lang-chip">French</span><span class="lang-chip">Russian</span><span class="lang-chip">Japanese</span><span class="lang-chip">Vietnamese</span><span class="lang-chip">Korean</span><span class="lang-chip">Thai</span><span class="lang-chip">Malay</span><span class="lang-chip">Filipino</span></div>
+          </article>
+          <article class="local-card" data-reveal>
+            <div class="feature-icon" aria-hidden="true">↔</div>
+            <h3>RTL Complex Layout Support</h3>
+            <p>Fully accommodates mirrored complex UI layouts for special languages such as Arabic, conforming to local reading conventions.</p>
+            <div class="rtl-preview"><div><div class="mini-ui"><div class="mini-sidebar"></div><div class="mini-content"><div class="mini-line accent"></div><div class="mini-line"></div><div class="mini-line"></div><div class="mini-line"></div></div></div><small>LTR</small></div><span>→</span><div><div class="mini-ui rtl"><div class="mini-sidebar"></div><div class="mini-content"><div class="mini-line accent"></div><div class="mini-line"></div><div class="mini-line"></div><div class="mini-line"></div></div></div><small>RTL</small></div></div>
+          </article>
+          <article class="local-card" data-reveal>
+            <div class="feature-icon" aria-hidden="true">◎</div>
+            <h3>Regional Rule Adaptation</h3>
+            <p>Full localization adaptation for time-zone-driven calculations, multi-source date formats, currency and number formats.</p>
+            <div class="format-list">
+              <div class="format-row"><span>Time Zones</span><span>(UTC)</span></div>
+              <div class="format-row"><span>Date Format</span><span>2026/06/30</span></div>
+              <div class="format-row"><span>Currency &amp; Numbers</span></div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -475,19 +1028,20 @@
     <section class="section" id="roleplay">
       <div class="container roleplay-grid">
         <div data-reveal>
-          <p class="eyebrow product-name">AI Coach</p>
-          <h2 class="section-title">Learn by doing in realistic workplace simulations</h2>
+          <p class="eyebrow product-name">AI Coach</p>
+          <h2 class="section-title">Talent Domain: Building an <span style="white-space:nowrap">End-to-End</span> Talent Development Journey</h2>
           <p class="section-copy">Lifelike AI avatars and AI-generated scripts let employees practice in realistic workplace simulations.</p>
           <div class="feature-list">
-            <div class="feature-line"><div class="feature-icon">✦</div><div><strong>AI-generated scripts</strong><span>Turn training materials into scripts for realistic workplace scenarios.</span></div></div>
-            <div class="feature-line"><div class="feature-icon">↔</div><div><strong>Multi-turn conversations</strong><span>Engage in natural, dynamic multi-round dialogue drills with AI.</span></div></div>
-            <div class="feature-line"><div class="feature-icon">◉</div><div><strong>Performance analytics</strong><span>Access performance data for every practice session.</span></div></div>
+            <div class="feature-line"><div class="feature-icon" aria-hidden="true">✦</div><div><strong>Script Generation:</strong><span>Instantly turn reference materials into training scripts</span></div></div>
+            <div class="feature-line"><div class="feature-icon" aria-hidden="true">↔</div><div><strong>Simulation Drills:</strong><span>Multi-round dialogue and role-play scenarios</span></div></div>
+            <div class="feature-line"><div class="feature-icon" aria-hidden="true">◉</div><div><strong>Targeted Operations:</strong><span>Visualized data</span></div></div>
+            <div class="feature-line"><div class="feature-icon" aria-hidden="true">↗</div><div><strong>Competency Growth:</strong><span>Continuous capability improvement</span></div></div>
           </div>
           <div class="language-strip"><span class="label">Supported languages</span><span class="pill">Mandarin</span><span class="pill">Cantonese</span><span class="pill">English</span><span class="pill">Vietnamese</span></div>
         </div>
-        <div class="roleplay-stage" data-reveal data-demo data-video-src="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/ai-roleplay-en.mp4" data-video-title="AI Coach video">
-          <img src="assets/roleplay-mobile-cover.png" alt="AI Coach promotional video preview" loading="lazy" decoding="async" />
-          <button class="play-button" aria-label="Play AI Coach video" data-play>
+        <div class="roleplay-stage" data-reveal data-demo data-video-src="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/ai-roleplay-en.mp4" data-video-title="AI Coach video">
+          <img src="assets/roleplay-mobile-cover.png" alt="AI Coach promotional video preview" loading="lazy" decoding="async" />
+          <button class="play-button" aria-label="Play AI Coach video" data-play>
             <svg width="29" height="33" viewBox="0 0 31 35" aria-hidden="true"><path fill="#ff5a14" d="M29.4 15.1a2.7 2.7 0 0 1 0 4.8L4.1 34.4A2.7 2.7 0 0 1 0 32.1V2.9A2.7 2.7 0 0 1 4.1.6L29.4 15Z"/></svg>
           </button>
           <div class="demo-progress"><span></span></div>
@@ -498,9 +1052,9 @@
     <section class="section" id="knowledge">
       <div class="container knowledge-grid">
         <div data-reveal>
-          <p class="eyebrow product-name">AI Wiki</p>
-          <h2 class="section-title">Turn enterprise knowledge into business value</h2>
-          <p class="section-copy">AI Wiki works with existing knowledge bases and connects employees, experts, and administrators, making it easier to find, share, and apply organizational know-how.</p>
+          <p class="eyebrow product-name">AI Wiki</p>
+          <h2 class="section-title">Knowledge Domain: Turning Enterprise Knowledge into Business Value</h2>
+          <p class="section-copy">AI Wiki works with existing knowledge bases and connects employees, experts, and administrators, making it easier to find, share, and apply organizational know-how.</p>
         </div>
         <div class="knowledge-panel" id="knowledgePanel" data-reveal>
           <div class="ask-box">
@@ -520,32 +1074,57 @@
         <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-company-knowledge.svg" alt="" /></div><strong>Company knowledge</strong><p>Connect existing knowledge bases and organize enterprise knowledge for reuse.</p></div>
         <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-practical-experience.svg" alt="" /></div><strong>Field expertise</strong><p>Capture real cases and tacit know-how as structured, reusable knowledge.</p></div>
         <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-frontline-questions.svg" alt="" /></div><strong>Frontline questions</strong><p>Collect and categorize frequently asked questions from frontline teams.</p></div>
-        <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-unified-qa.svg" alt="" /></div><strong>Unified Q&amp;A hub</strong><p>Help employees find, share, and apply organizational know-how through AI Wiki.</p></div>
+        <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-unified-qa.svg" alt="" /></div><strong>Unified Q&amp;A hub</strong><p>Help employees find, share, and apply organizational know-how through AI Wiki.</p></div>
       </div>
     </section>
 
-    <section class="section localization-section" id="localization">
+    <section class="section extension-section trust-section" id="trust" aria-labelledby="trustTitle">
       <div class="container">
-        <div data-reveal>
-          <p class="eyebrow section-label">Global service network</p>
-          <h2 class="section-title">Create seamless localized experiences</h2>
-          <p class="section-copy">Adapt UI language, reading direction, and regional formats for all supported markets.</p>
+        <div class="extension-head" data-reveal><h2 class="section-title" id="trustTitle">Foundations of Trust: A Framework for Secure, Governable Enterprise AI</h2></div>
+        <div class="trust-grid">
+          <div class="trust-column"><h3>Key Risks of Enterprise AI Adoption</h3><div class="trust-risk-list"><article class="trust-risk" data-reveal><h4>AI accesses sensitive business data</h4><p>Risks: data leaks, unauthorized access, and loss of traceability</p></article><article class="trust-risk" data-reveal><h4>AI acts on users' behalf in business workflows</h4><p>Risks: prompt injection, unintended actions, and inadequate audit trails</p></article><article class="trust-risk" data-reveal><h4>AI agents use tools to execute tasks</h4><p>Risks: excessive permissions, uncontrolled tool calls, and limited rollback</p></article></div></div>
+          <div class="trust-column"><h3>Zhiniao's Core Capabilities</h3><div class="trust-core" data-reveal><article class="trust-core-item"><h4>Visible</h4><p>End-to-end visibility into AI workflows</p></article><article class="trust-core-item"><h4>Controlled</h4><p>Controlled and auditable AI actions</p></article><article class="trust-core-item"><h4>Responsive</h4><p>Risks managed and operations recoverable</p></article></div></div>
+          <div class="trust-column"><h3>What This Delivers</h3><div class="trust-deliveries" data-reveal><article class="trust-delivery"><h4>Trusted and Protected Data</h4><p>Controlled access, data protection, and full traceability</p></article><article class="trust-delivery"><h4>Reliable Execution</h4><p>evidence-based, verifiable, and auditable</p></article><article class="trust-delivery"><h4>Governed AI Tools</h4><p>access controls, clear boundaries, human oversight</p></article><article class="trust-delivery"><h4>Business Continuity</h4><p>monitoring, rapid response, and recovery</p></article></div></div>
         </div>
-        <div class="local-grid">
-          <article class="local-card" data-reveal>
-            <div class="feature-icon">A</div><h3>Multilingual interfaces &amp; notifications</h3><p>Deliver platform experiences and notifications in supported languages.</p>
-            <div class="lang-chips"><span class="lang-chip">Simplified Chinese</span><span class="lang-chip">Traditional Chinese</span><span class="lang-chip">English</span><span class="lang-chip">Arabic</span><span class="lang-chip">Malay</span><span class="lang-chip">More</span></div>
-          </article>
-          <article class="local-card" data-reveal>
-            <div class="feature-icon">↔</div><h3>RTL interface support</h3><p>Support right-to-left layouts for languages such as Arabic.</p>
-            <div class="rtl-preview"><div><div class="mini-ui"><div class="mini-sidebar"></div><div class="mini-content"><div class="mini-line accent"></div><div class="mini-line"></div><div class="mini-line"></div><div class="mini-line"></div></div></div><small>LTR</small></div><span>→</span><div><div class="mini-ui rtl"><div class="mini-sidebar"></div><div class="mini-content"><div class="mini-line accent"></div><div class="mini-line"></div><div class="mini-line"></div><div class="mini-line"></div></div></div><small>RTL</small></div></div>
-          </article>
-          <article class="local-card" data-reveal>
-            <div class="feature-icon">◎</div><h3>Regional format support</h3><p>Localize time zones, dates, currencies, and number formats.</p>
-            <div class="format-list" id="formatList"><div class="format-row"><span>Time zone</span><span>(GMT+8) Singapore</span></div><div class="format-row"><span>Date format</span><span>Dec 31&nbsp; 2026</span></div><div class="format-row"><span>Currency format</span><span>SGD 1,234.56</span></div><div class="format-row"><span>Number format</span><span>1,234,567.89</span></div></div>
-          </article>
+        <div class="trust-foundation" data-reveal><h3>Zhiniao's enterprise-grade, defense-in-depth AI foundation</h3><ul class="security-layers"><li>Physical Infrastructure</li><li>Network &amp; Perimeter</li><li>Compute &amp; Containers</li><li>Applications &amp; APIs</li><li>Data Security</li><li>AI &amp; Agents</li><li>Security Operations</li></ul></div>
+      </div>
+    </section>
+
+    <section class="section extension-section enablers-section" id="enablers" aria-labelledby="enablersTitle">
+      <div class="container">
+        <div class="extension-head" data-reveal>
+          <h2 class="section-title" id="enablersTitle">Organizational Enablers: Building Organizational Capabilities for AI Transformation</h2>
+          <p class="section-copy">Build AI literacy across the organization and strengthen the leadership, culture, and learning capabilities needed for transformation.</p>
         </div>
-        <div class="footnote">ⓘ Feature availability varies across functions and global markets.</div>
+        <div class="enabler-grid"><article class="enabler-card" data-reveal><div class="enabler-index" aria-hidden="true">01</div><h3>AI Leadership Capabilities</h3><h4>AI Leadership: Set the direction for AI transformation</h4><ul><li>Align AI investment with measurable business goals</li><li>Set clear permissions and governance rules</li><li>Lead by example and visibly sponsor the change</li></ul></article><article class="enabler-card" data-reveal><div class="enabler-index" aria-hidden="true">02</div><h3>AI Organizational Capabilities</h3><h4>AI Organization: Scale AI Adoption</h4><ul><li>Build a culture that encourages responsible AI experimentation</li><li>Put repeatable workflows in place to scale AI use</li></ul></article><article class="enabler-card" data-reveal><div class="enabler-index" aria-hidden="true">03</div><h3>AI Learning Capabilities</h3><h4>AI Learning: Build AI literacy across the enterprise</h4><ul><li>Develop AI training tailored to the enterprise's needs</li><li>Give employees the tools and pathways to progress</li><li>Embed AI learning into everyday work and measure impact</li></ul></article></div>
+      </div>
+    </section>
+
+    <section class="section extension-section platform-section" id="platform" aria-labelledby="platformTitle">
+      <div class="container">
+        <div class="extension-head" data-reveal>
+          <h2 class="section-title" id="platformTitle">An AI-Native Platform Built for Talent Development</h2>
+        </div>
+        <div class="platform-grid">
+          <div class="platform-feature-list"><article class="platform-feature" data-reveal><h3>AI-enabled talent development</h3><p>End-to-end talent management, from recruitment and training to performance.</p></article><article class="platform-feature" data-reveal><h3>Advanced technology, AI-native by design</h3><p>AI Coach, AI Wiki, and AI CourseFactory... are integrated into a single AI-native platform ——not a collection of bolt-on tools.</p></article><article class="platform-feature" data-reveal><h3>Global service network</h3><p>Developed in China, Zhiniao now serves a global service network across Asia-Pacific and beyond.</p></article></div>
+          <figure class="platform-map" data-reveal>
+            <img src="assets/global-service-map.png" alt="Global service network map with China, Southeast Asia, Middle East, and Africa markers" width="2859" height="2067" loading="lazy" decoding="async" />
+            <figcaption>Base map source: Standard Map GS (2016) 2945, Ministry of Natural Resources of China. Geographic features remain unchanged; location markers and connecting lines are for illustrative business purposes only.</figcaption>
+          </figure>
+        </div>
+        <div class="platform-statement" data-reveal>
+          <img class="quote-open" src="assets/platform-quote-open.png" alt="" aria-hidden="true" width="736" height="398" />
+          <p>Built on more than a decade of development and proven through billions of real-world interactions, Zhiniao combines AIGC technology with deep expertise in talent development to deliver</p>
+          <div class="platform-service"><h3>End-to-end talent management for enterprises:</h3><p>Consulting + SaaS &amp; AI Tools + Training Courses + Operations</p></div>
+          <img class="quote-close" src="assets/platform-quote-close.png" alt="" aria-hidden="true" width="771" height="416" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section extension-section industries-section" id="industries" aria-labelledby="industriesTitle">
+      <div class="container">
+        <div class="extension-head" data-reveal><h2 class="section-title" id="industriesTitle">A Proven Track Record Across Diverse Industries</h2></div>
+        <div class="industry-carousel" role="region" aria-roledescription="carousel" aria-label="Industry case studies"><div class="industry-viewport"><div class="industry-list" aria-live="off"><article class="industry-row"><div class="industry-case-header"><div class="industry-card-heading"><h3>Financial Services</h3></div><div class="industry-logos"><div class="client-logo pingan"><img src="assets/client-pingan.png" alt="Ping An" loading="lazy" decoding="async" /></div><div class="client-logo ncb"><img src="assets/client-ncb.png" alt="NCB" loading="lazy" decoding="async" /></div></div></div><p>A top-tier securities firm deployed <strong>[AI Coach and AI ExamExpert]</strong> to help its investment advisors rapidly improve their performance.</p></article><article class="industry-row"><div class="industry-case-header"><div class="industry-card-heading"><h3>Retail</h3></div><div class="industry-logos"><div class="client-logo tcl"><img src="assets/client-tcl.png" alt="TCL" loading="lazy" decoding="async" /></div><div class="client-logo panasonic"><img src="assets/client-panasonic.png" alt="Panasonic" loading="lazy" decoding="async" /></div></div></div><p>A multinational technology company used <strong>[AI Coach]</strong> to simulate real-world scenarios and help in-store sales associates improve their customer service skills.</p></article><article class="industry-row"><div class="industry-case-header"><div class="industry-card-heading"><h3>Automotive</h3></div><div class="industry-logos"><div class="client-logo honda"><img src="assets/client-honda.png" alt="Honda" loading="lazy" decoding="async" /></div><div class="client-logo crrc"><img src="assets/client-crrc.png" alt="CRRC" loading="lazy" decoding="async" /></div></div></div><p>A large automotive group leveraged <strong>[AI Coach and Learning Map]</strong> to strengthen its employees' sales skills.</p></article><article class="industry-row"><div class="industry-case-header"><div class="industry-card-heading"><h3>Life Science &amp; Healthcare</h3></div><div class="industry-logos"><div class="client-logo tsumura"><img src="assets/client-tsumura.png" alt="Tsumura" loading="lazy" decoding="async" /></div><div class="client-logo pku-healthcare"><img src="assets/client-pku-healthcare.png" alt="PKU Healthcare" loading="lazy" decoding="async" /></div></div></div><p>A multinational pharmaceutical company launched a dedicated <strong>[SaaS]</strong> platform to deliver specialized training entirely online.</p></article><article class="industry-row"><div class="industry-case-header"><div class="industry-card-heading"><h3>Energy</h3></div><div class="industry-logos"><div class="client-logo wylton"><img src="assets/client-wylton.png" alt="Wylton" loading="lazy" decoding="async" /></div><div class="client-logo energy-china"><img src="assets/client-energy-china.png" alt="Energy China" loading="lazy" decoding="async" /></div></div></div><p>A large energy group used <strong>[AI CourseFactory and Live Streaming]</strong> to train its extensive frontline workforce at scale.</p></article></div></div><div class="industry-controls"><div class="industry-dots" aria-label="Select industry case"><button class="industry-dot" data-industry-slide="0" aria-label="Show Financial Services case"><span></span></button><button class="industry-dot" data-industry-slide="1" aria-label="Show Retail case"><span></span></button><button class="industry-dot" data-industry-slide="2" aria-label="Show Automotive case"><span></span></button><button class="industry-dot" data-industry-slide="3" aria-label="Show Life Science and Healthcare case"><span></span></button><button class="industry-dot" data-industry-slide="4" aria-label="Show Energy case"><span></span></button></div></div></div>
       </div>
     </section>
 
@@ -554,8 +1133,8 @@
         <div data-reveal>
           <p class="eyebrow section-label">Book a Demo</p>
           <h2 class="section-title">Let's use AI to amplify what people do best</h2>
-          <p class="section-copy">Discover how TalentForce, AI Coach, AI Wiki, and AI WikiFactory support talent development, so everyone can make a greater impact.</p>
-          <div class="benefits"><div class="benefit"><div class="feature-icon">⌘</div>Explore TalentForce’s training workflow</div><div class="benefit"><div class="feature-icon">✦</div>See AI Coach in action</div><div class="benefit"><div class="feature-icon">◎</div>Explore localization support for your region</div></div>
+          <p class="section-copy">Discover how TalentForce, AI Coach, AI Wiki, and AI WikiFactory support talent development, so everyone can make a greater impact.</p>
+          <div class="benefits"><div class="benefit"><div class="feature-icon">⌘</div>Explore TalentForce’s training workflow</div><div class="benefit"><div class="feature-icon">✦</div>See AI Coach in action</div><div class="benefit"><div class="feature-icon">◎</div>Explore localization support for your region</div></div>
         </div>
         <form class="form-card" id="demoForm" data-reveal>
           <div class="form-grid">
@@ -582,202 +1161,6 @@
   </div>
 
   <script>
-    const vietnamese = {
-      "ZhiNiao International home": "Trang chủ ZhiNiao International",
-      "Language: English": "Ngôn ngữ: Tiếng Anh",
-      "Select language": "Chọn ngôn ngữ",
-      "Book a Demo": "Đặt lịch demo",
-      "Explore the Platform": "Khám phá nền tảng",
-      "Professional workplace training scene": "Bối cảnh đào tạo chuyên nghiệp tại nơi làm việc",
-      "Product demo": "Demo sản phẩm",
-      "Play ZhiNiao International overview video": "Phát video giới thiệu ZhiNiao International",
-      "ZhiNiao International overview video": "Video giới thiệu ZhiNiao International",
-      "Learning": "Học tập",
-      "Practice": "Thực hành",
-      "Assess": "Đánh giá",
-      "Manage question banks, exams, and results.": "Quản lý ngân hàng câu hỏi, kỳ thi và kết quả.",
-      "Administer": "Quản trị",
-      "Manage users, roles, permissions, and organizational structures.": "Quản lý người dùng, vai trò, quyền hạn và cơ cấu tổ chức.",
-      "Analyze": "Phân tích",
-      "Track progress, performance, and learning outcomes.": "Theo dõi tiến độ, hiệu suất và kết quả học tập.",
-      "Create & Deliver": "Xây dựng & triển khai",
-      "Practice & Assess": "Thực hành & đánh giá",
-      "Operate & Improve": "Vận hành & cải tiến",
-      "Multi-turn conversations": "Hội thoại nhiều lượt",
-      "Engage in natural, dynamic multi-round dialogue drills with AI.": "Luyện tập các cuộc hội thoại tự nhiên, qua lại với AI.",
-      "Performance analytics": "Phân tích hiệu suất",
-      "Access performance data for every practice session.": "Xem lại dữ liệu hiệu suất của từng phiên thực hành.",
-      "Supported languages": "Ngôn ngữ được hỗ trợ",
-      "Mandarin": "Tiếng Trung Phổ thông",
-      "Cantonese": "Tiếng Quảng Đông",
-      "English": "Tiếng Anh",
-      "Vietnamese": "Tiếng Việt",
-      "Ask questions about company policies, workflow, or domain knowledge": "Hỏi về chính sách, quy trình hoặc kiến thức nội bộ",
-      "Ask questions about company policies, workflow, or domain knowledge...": "Đặt câu hỏi về chính sách, quy trình hoặc kiến thức nội bộ...",
-      "Ask question": "Gửi câu hỏi",
-      "How to submit an expense claim?": "Tôi gửi đề nghị thanh toán chi phí như thế nào?",
-      "How to onboard a new client?": "Quy trình tiếp nhận khách hàng mới như thế nào?",
-      "What is our customer data policy?": "Chính sách dữ liệu khách hàng của công ty quy định những gì?",
-      "✦ Answer": "✦ Câu trả lời",
-      "Expense claims must be submitted through the company expense system with the required receipts and manager approval.": "Đề nghị thanh toán chi phí cần được gửi qua hệ thống quản lý chi phí của công ty, kèm đầy đủ hóa đơn, chứng từ và phê duyệt của quản lý.",
-      "Expense Policy": "Chính sách chi phí",
-      "Finance · Policy": "Tài chính · Chính sách",
-      "Employee Handbook": "Sổ tay nhân viên",
-      "HR · Handbook": "Nhân sự · Sổ tay",
-      "Expense Guidelines": "Hướng dẫn thanh toán chi phí",
-      "Finance · Guidelines": "Tài chính · Hướng dẫn",
-      "Company knowledge": "Tri thức doanh nghiệp",
-      "Field expertise": "Kinh nghiệm thực tiễn",
-      "Frontline questions": "Câu hỏi từ tuyến đầu",
-      "Collect and categorize frequently asked questions from frontline teams.": "Tổng hợp các câu hỏi thường gặp từ đội ngũ tuyến đầu.",
-      "Unified Q&A hub": "Trung tâm hỏi đáp tập trung",
-      "Create seamless localized experiences": "Kiến tạo trải nghiệm bản địa hóa liền mạch",
-      "Adapt UI language, reading direction, and regional formats for all supported markets.": "Điều chỉnh ngôn ngữ giao diện, hướng hiển thị văn bản và định dạng theo từng khu vực được hỗ trợ.",
-      "Multilingual interfaces & notifications": "Giao diện & thông báo đa ngôn ngữ",
-      "Deliver platform experiences and notifications in supported languages.": "Cung cấp trải nghiệm nền tảng và thông báo bằng các ngôn ngữ được hỗ trợ.",
-      "Simplified Chinese": "Tiếng Trung Giản thể",
-      "Traditional Chinese": "Tiếng Trung Phồn thể",
-      "Arabic": "Tiếng Ả Rập",
-      "Malay": "Tiếng Mã Lai",
-      "More": "Khác",
-      "RTL interface support": "Hỗ trợ giao diện RTL",
-      "Support right-to-left layouts for languages such as Arabic.": "Hỗ trợ bố cục từ phải sang trái cho các ngôn ngữ như tiếng Ả Rập.",
-      "Regional format support": "Hỗ trợ định dạng theo khu vực",
-      "Localize time zones, dates, currencies, and number formats.": "Bản địa hóa múi giờ, ngày tháng, tiền tệ và định dạng số.",
-      "Time zone": "Múi giờ",
-      "Date format": "Định dạng ngày",
-      "Currency format": "Định dạng tiền tệ",
-      "Number format": "Định dạng số",
-      "ⓘ Feature availability varies across functions and global markets.": "ⓘ Phạm vi hỗ trợ tùy thuộc vào từng tính năng và thị trường.",
-      "Explore localization support for your region": "Khám phá khả năng bản địa hóa cho thị trường của bạn",
-      "Full Name": "Họ và tên",
-      "Enter your full name": "Nhập họ và tên",
-      "Work Email": "Email công việc",
-      "Company": "Công ty",
-      "Enter your company name": "Nhập tên công ty",
-      "Country or Region": "Quốc gia hoặc khu vực",
-      "Select your country or region": "Chọn quốc gia hoặc khu vực",
-      "Vietnam": "Việt Nam",
-      "United Arab Emirates": "Các Tiểu vương quốc Ả Rập Thống nhất",
-      "Others": "Khác",
-      "Training Requirement": "Nhu cầu đào tạo",
-      "Tell us about your training goals and priorities": "Hãy cho chúng tôi biết mục tiêu và ưu tiên đào tạo của bạn",
-      "Request a Personalized Demo": "Đặt lịch demo theo nhu cầu",
-      "🔒 Your information will only be used in responding to your inquiry.": "🔒 Thông tin của bạn chỉ được sử dụng để phản hồi yêu cầu này.",
-      "Your demo request has been received": "Đã nhận yêu cầu",
-      "Video player": "Trình phát video",
-      "Close video": "Đóng video",
-      "An AI-Native Platform Built for Talent Development": "Nền tảng AI nguyên bản dành cho phát triển nhân tài",
-      "People Inspire, AI Empowers": "Con người truyền cảm hứng, AI trao sức mạnh",
-      "Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory.": "Zhiniao cung cấp giải pháp phát triển nhân tài toàn diện ứng dụng AI cho doanh nghiệp, kết nối TalentForce, AI Coach, AI Wiki và AI WikiFactory.",
-      "TalentForce": "TalentForce",
-      "TalentForce connects learning, practice, assessment, administration, and analytics to support enterprise talent development.": "TalentForce kết nối học tập, thực hành, đánh giá, quản trị và phân tích để hỗ trợ phát triển nhân tài trong doanh nghiệp.",
-      "Create personalized learning paths based on each employee’s role and current capabilities.": "Xây dựng lộ trình học tập cá nhân hóa dựa trên vai trò và năng lực hiện tại của từng nhân viên.",
-      "Practice in realistic workplace simulations with AI Coach.": "Thực hành trong các tình huống công việc mô phỏng sát thực tế với AI Coach.",
-      "Engage": "Gắn kết",
-      "Keep learners on track with reminders and incentives.": "Duy trì tiến độ học tập bằng lời nhắc và cơ chế khuyến khích.",
-      "An AI-native suite for talent development": "Bộ giải pháp AI nguyên bản dành cho phát triển nhân tài",
-      "Combine AI Coach simulations with question banks and assessments to validate learning outcomes.": "Kết hợp mô phỏng AI Coach với ngân hàng câu hỏi và đánh giá để xác thực kết quả học tập.",
-      "Use learning progress and performance data to identify skill gaps and improve talent development.": "Sử dụng dữ liệu tiến độ học tập và hiệu suất để xác định khoảng trống kỹ năng và cải thiện hoạt động phát triển nhân tài.",
-      "AI Coach": "AI Coach",
-      "Learn by doing in realistic workplace simulations": "Học qua thực hành trong các tình huống công việc sát thực tế",
-      "Lifelike AI avatars and AI-generated scripts let employees practice in realistic workplace simulations.": "Nhân vật AI sống động và kịch bản do AI tạo giúp nhân viên thực hành trong các tình huống công việc mô phỏng sát thực tế.",
-      "AI-generated scripts": "Kịch bản do AI tạo",
-      "Turn training materials into scripts for realistic workplace scenarios.": "Chuyển tài liệu đào tạo thành kịch bản cho các tình huống công việc sát thực tế.",
-      "AI Coach promotional video preview": "Hình xem trước video giới thiệu AI Coach",
-      "Play AI Coach video": "Phát video AI Coach",
-      "AI Coach video": "Video AI Coach",
-      "AI Wiki": "AI Wiki",
-      "AI Wiki works with existing knowledge bases and connects employees, experts, and administrators, making it easier to find, share, and apply organizational know-how.": "AI Wiki kết nối với các kho tri thức hiện có và liên kết nhân viên, chuyên gia cùng quản trị viên, giúp việc tìm kiếm, chia sẻ và áp dụng tri thức của tổ chức trở nên dễ dàng hơn.",
-      "Connect existing knowledge bases and organize enterprise knowledge for reuse.": "Kết nối các kho tri thức hiện có và tổ chức tri thức doanh nghiệp để tái sử dụng.",
-      "Capture real cases and tacit know-how as structured, reusable knowledge.": "Chuyển các tình huống thực tế và tri thức ngầm thành tri thức có cấu trúc, có thể tái sử dụng.",
-      "Help employees find, share, and apply organizational know-how through AI Wiki.": "Giúp nhân viên tìm kiếm, chia sẻ và áp dụng tri thức của tổ chức thông qua AI Wiki.",
-      "Explore TalentForce’s training workflow": "Khám phá quy trình đào tạo của TalentForce",
-      "See AI Coach in action": "Trải nghiệm AI Coach trong thực tế",
-      "Build an end-to-end talent development journey": "Xây dựng hành trình phát triển nhân tài toàn diện",
-      "Drive measurable business impact and sustainable growth": "Tạo ra tác động kinh doanh có thể đo lường và tăng trưởng bền vững",
-      "Transform content from multiple sources and formats into structured knowledge with AI WikiFactory.": "Chuyển nội dung từ nhiều nguồn và định dạng thành tri thức có cấu trúc với AI WikiFactory.",
-      "Turn enterprise knowledge into business value": "Chuyển tri thức doanh nghiệp thành giá trị kinh doanh",
-      "Global service network": "Mạng lưới dịch vụ toàn cầu",
-      "Let's use AI to amplify what people do best": "Hãy cùng sử dụng AI để phát huy thế mạnh của con người",
-      "Discover how TalentForce, AI Coach, AI Wiki, and AI WikiFactory support talent development, so everyone can make a greater impact.": "Khám phá cách TalentForce, AI Coach, AI Wiki và AI WikiFactory hỗ trợ phát triển nhân tài, để mọi người có thể tạo ra tác động lớn hơn."
-};
-
-    let currentLanguage = 'en';
-    const languageToggle = document.getElementById('languageToggle');
-    const languageLabel = document.getElementById('languageLabel');
-    const languageMenu = document.getElementById('languageMenu');
-    const languageOptions = [...document.querySelectorAll('.language-option')];
-    const originalTitle = document.title;
-    const originalDescription = document.querySelector('meta[name="description"]').content;
-    const originalTextNodes = new Map();
-    const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
-        if (node.parentElement.closest('script, style, .language-menu, #languageLabel')) return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    while (textWalker.nextNode()) originalTextNodes.set(textWalker.currentNode, textWalker.currentNode.nodeValue);
-
-    const originalAttributes = [];
-    ['aria-label', 'placeholder', 'alt', 'data-video-title'].forEach(attribute => {
-      document.querySelectorAll(`[${attribute}]`).forEach(element => originalAttributes.push({ element, attribute, value: element.getAttribute(attribute) }));
-    });
-
-    function localized(value, language = currentLanguage) {
-      return language === 'vi' ? (vietnamese[value] || value) : value;
-    }
-
-    function closeLanguageMenu({ restoreFocus = false } = {}) {
-      languageMenu.hidden = true;
-      languageToggle.setAttribute('aria-expanded', 'false');
-      if (restoreFocus) languageToggle.focus();
-    }
-
-    function applyLanguage(language, { persist = true } = {}) {
-      currentLanguage = language === 'vi' ? 'vi' : 'en';
-      document.documentElement.lang = currentLanguage;
-      document.title = currentLanguage === 'vi' ? 'Phát triển nhân tài ứng dụng AI | ZhiNiao International' : originalTitle;
-      document.querySelector('meta[name="description"]').content = localized(originalDescription);
-
-      originalTextNodes.forEach((original, node) => {
-        const trimmed = original.trim();
-        node.nodeValue = original.replace(trimmed, localized(trimmed));
-      });
-      originalAttributes.forEach(({ element, attribute, value }) => element.setAttribute(attribute, localized(value)));
-
-      const isVietnamese = currentLanguage === 'vi';
-      languageLabel.textContent = isVietnamese ? 'Tiếng Việt' : 'English';
-      languageLabel.dataset.shortLabel = isVietnamese ? 'VI' : 'EN';
-      languageToggle.setAttribute('aria-label', isVietnamese ? 'Ngôn ngữ: Tiếng Việt' : 'Language: English');
-      languageMenu.setAttribute('aria-label', isVietnamese ? 'Chọn ngôn ngữ' : 'Select language');
-      languageOptions.forEach(option => option.setAttribute('aria-checked', String(option.dataset.lang === currentLanguage)));
-      syncKnowledgeLanguage();
-      updateFormats(false);
-
-      const demoForm = document.getElementById('demoForm');
-      if (demoForm.dataset.submitted === 'true') demoForm.querySelector('.submit-btn').textContent = localized('Your demo request has been received');
-      if (persist) {
-        try { localStorage.setItem('zhiniao-language', currentLanguage); } catch (error) {}
-      }
-      closeLanguageMenu();
-    }
-
-    languageToggle.addEventListener('click', () => {
-      const willOpen = languageMenu.hidden;
-      languageMenu.hidden = !willOpen;
-      languageToggle.setAttribute('aria-expanded', String(willOpen));
-      if (willOpen) languageOptions.find(option => option.dataset.lang === currentLanguage)?.focus();
-    });
-    languageOptions.forEach(option => option.addEventListener('click', () => applyLanguage(option.dataset.lang)));
-    document.addEventListener('click', event => {
-      if (!event.target.closest('.language-switcher')) closeLanguageMenu();
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape' && !languageMenu.hidden) closeLanguageMenu({ restoreFocus: true });
-    });
-
     const header = document.getElementById('siteHeader');
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 18), { passive: true });
     const revealObserver = new IntersectionObserver(entries => {
@@ -814,8 +1197,8 @@
 
     function openVideo(trigger) {
       lastVideoTrigger = trigger.querySelector('[data-play]') || trigger;
-      modalVideo.src = currentLanguage === 'vi' && trigger.dataset.videoSrcVi ? trigger.dataset.videoSrcVi : trigger.dataset.videoSrc;
-      videoDialog.setAttribute('aria-label', trigger.dataset.videoTitle || localized('Video player'));
+      modalVideo.src = trigger.dataset.videoSrc;
+      videoDialog.setAttribute('aria-label', trigger.dataset.videoTitle || 'Video player');
       videoModal.hidden = false;
       videoModal.setAttribute('aria-hidden', 'false');
       document.body.classList.add('video-open');
@@ -873,14 +1256,9 @@
     const knowledgeQuestion = 'How to submit an expense claim?';
     let activeKnowledgeQuestion = knowledgeQuestion;
 
-    function syncKnowledgeLanguage() {
-      if (knowledgeTimer) clearInterval(knowledgeTimer);
-      if (typed || knowledgeInput.value) knowledgeInput.value = localized(activeKnowledgeQuestion);
-    }
-
     function runKnowledgeDemo() {
       if (typed) return; typed = true;
-      const question = localized(knowledgeQuestion);
+      const question = knowledgeQuestion;
       let i = 0; knowledgeInput.value = '';
       knowledgeTimer = setInterval(() => {
         knowledgeInput.value += question[i++] || '';
@@ -894,7 +1272,7 @@
       knowledgeTimer = null;
       typed = true;
       activeKnowledgeQuestion = questionKey;
-      knowledgeInput.value = questionText || localized(knowledgeQuestion);
+      knowledgeInput.value = questionText || knowledgeQuestion;
       knowledgePanel.classList.add('show-answer');
     }
     document.getElementById('knowledgeSend').addEventListener('click', () => showKnowledgeAnswer(knowledgeInput.value));
@@ -903,42 +1281,64 @@
       btn.addEventListener('click', () => showKnowledgeAnswer(btn.textContent, questionKey));
     });
 
-    const formats = {
-      en: [
-        ['(GMT+8) Singapore','Dec 31  2026','SGD 1,234.56','1,234,567.89'],
-        ['(GMT+4) Dubai','31/12/2026','AED 1,234.56','1,234,567.89'],
-        ['(GMT+7) Ho Chi Minh City','31-12-2026','VND 1.234.567','1.234.567,89']
-      ],
-      vi: [
-        ['(GMT+8) Singapore','31/12/2026','SGD 1.234,56','1.234.567,89'],
-        ['(GMT+4) Dubai','31/12/2026','AED 1.234,56','1.234.567,89'],
-        ['(GMT+7) TP. Hồ Chí Minh','31-12-2026','VND 1.234.567','1.234.567,89']
-      ]
-    };
-    let formatIndex = 0;
-
-    function updateFormats(animate = true) {
-      document.querySelectorAll('#formatList .format-row span:last-child').forEach((el, i) => {
-        if (animate) el.animate([{opacity:.2, transform:'translateY(4px)'},{opacity:1, transform:'none'}], {duration:380});
-        el.textContent = formats[currentLanguage][formatIndex][i];
-      });
-    }
-
-    setInterval(() => {
-      formatIndex = (formatIndex + 1) % formats.en.length;
-      updateFormats();
-    }, 3200);
-
     const demoForm = document.getElementById('demoForm');
     demoForm.addEventListener('submit', event => {
       event.preventDefault();
       demoForm.dataset.submitted = 'true';
-      demoForm.querySelector('.submit-btn').textContent = localized('Your demo request has been received');
+      demoForm.querySelector('.submit-btn').textContent = 'Your demo request has been received';
     });
 
-    let savedLanguage = 'en';
-    try { savedLanguage = localStorage.getItem('zhiniao-language') || 'en'; } catch (error) {}
-    applyLanguage(savedLanguage, { persist: false });
+
+    // Industry cases retain the supplied wording; only the active viewing position changes.
+    const industryCarousel = document.querySelector('.industry-carousel');
+    const industryTrack = industryCarousel.querySelector('.industry-list');
+    const industryCards = [...industryCarousel.querySelectorAll('.industry-row')];
+    const industryDots = [...industryCarousel.querySelectorAll('[data-industry-slide]')];
+    const industryMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    let industryIndex = 0, industryTimer = null;
+    let industryPaused = industryMotion.matches, industryHovered = false, industryVisible = false;
+    function sizeIndustryTrack() {
+      industryTrack.style.height = Math.ceil(Math.max(...industryCards.map(card => card.offsetHeight))) + 'px';
+    }
+    function showIndustry(index) {
+      industryIndex = (index + industryCards.length) % industryCards.length;
+      industryCards.forEach((card, i) => {
+        let offset = (i - industryIndex + industryCards.length) % industryCards.length;
+        if (offset > Math.floor(industryCards.length / 2)) offset -= industryCards.length;
+        card.style.setProperty('--case-offset', offset);
+        card.classList.toggle('is-current', offset === 0);
+        card.classList.toggle('is-adjacent', Math.abs(offset) === 1);
+        card.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+        card.setAttribute('role', 'group');
+        card.setAttribute('aria-roledescription', 'slide');
+        card.setAttribute('aria-label', `${i + 1} of ${industryCards.length}`);
+      });
+      industryDots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === industryIndex)));
+      sizeIndustryTrack();
+    }
+    function syncIndustryRotation() {
+      clearInterval(industryTimer); industryTimer = null;
+      industryTrack.setAttribute('aria-live', industryPaused ? 'polite' : 'off');
+      if (!industryPaused && !industryHovered && industryVisible && !document.hidden) {
+        industryTimer = setInterval(() => showIndustry(industryIndex + 1), 3000);
+      }
+    }
+    function moveIndustry(index) { showIndustry(index); syncIndustryRotation(); }
+    industryDots.forEach((dot, i) => dot.addEventListener('click', () => moveIndustry(i)));
+    industryCarousel.addEventListener('mouseenter', () => { industryHovered = true; syncIndustryRotation(); });
+    industryCarousel.addEventListener('mouseleave', () => { industryHovered = false; syncIndustryRotation(); });
+    industryCarousel.addEventListener('keydown', event => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); moveIndustry(industryIndex + 1); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); moveIndustry(industryIndex - 1); }
+    });
+    document.addEventListener('visibilitychange', syncIndustryRotation);
+    industryMotion.addEventListener('change', event => { industryPaused = event.matches; syncIndustryRotation(); });
+    new IntersectionObserver(entries => { industryVisible = entries[0].isIntersecting; syncIndustryRotation(); }, {threshold:.2}).observe(industryCarousel);
+    const industrySizeObserver = new ResizeObserver(sizeIndustryTrack);
+    industryCards.forEach(card => industrySizeObserver.observe(card));
+    industryCards.forEach(card => card.querySelectorAll('img').forEach(img => img.addEventListener('load', sizeIndustryTrack)));
+    showIndustry(0); syncIndustryRotation();
+
   </script>
 </body>
 </html>
