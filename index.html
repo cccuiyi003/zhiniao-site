@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory." />
+  <title>ZhiNiao International</title>
+  <style>
+    :root {
+      --orange: #ff5a14;
+      --orange-deep: #e94700;
+      --orange-soft: #fff1e9;
+      --ink: #111827;
+      --ink-2: #344054;
+      --muted: #667085;
+      --line: rgba(17, 24, 39, 0.10);
+      --surface: rgba(255,255,255,.78);
+      --surface-strong: rgba(255,255,255,.94);
+      --warm: #f7f3ed;
+      --warm-2: #fffaf5;
+      --hero-bg: linear-gradient(180deg, #f9f5ef 0%, #fffdf9 48%, #f4eee7 100%);
+      --section-stone: #f4f4f1;
+      --section-peach: #fff1e8;
+      --section-blush: #f7eeea;
+      --section-navy: #171d2a;
+      --shadow: 0 24px 70px rgba(47, 35, 25, .12);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --container: 1240px;
+      --header-h: 74px;
+      --display-title-size: clamp(2.75rem, 4.1vw, 4.3rem);
+      --display-title-line: 1.03;
+      --display-title-spacing: -.028em;
+      --display-title-weight: 700;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 86% 5%, rgba(255, 113, 48, .16), transparent 22rem),
+        radial-gradient(circle at 10% 34%, rgba(255,255,255,.95), transparent 34rem),
+        var(--hero-bg);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .28;
+      background-image: linear-gradient(rgba(31,41,55,.022) 1px, transparent 1px), linear-gradient(90deg, rgba(31,41,55,.022) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, transparent 0, black 12%, black 78%, transparent 100%);
+      z-index: -2;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+    img { max-width: 100%; display: block; }
+
+    .container { width: min(var(--container), calc(100% - 48px)); margin: 0 auto; }
+    .section { position: relative; padding: 124px 0; }
+    .eyebrow { color: var(--orange); font-weight: 730; letter-spacing: .005em; font-size: .94rem; margin: 0 0 14px; }
+    .hero .eyebrow { font-size: clamp(1.25rem, 1.8vw, 1.5rem); font-weight: 780; line-height: 1.35; margin-bottom: 20px; text-wrap: balance; }
+    .eyebrow.product-name, .eyebrow.section-label { font-size: clamp(1.875rem, 3vw, 2.5rem); font-weight: 780; line-height: 1.15; letter-spacing: -.015em; margin-bottom: 18px; }
+    .section-title { margin: 0; max-width: 900px; font-size: var(--display-title-size); line-height: var(--display-title-line); letter-spacing: var(--display-title-spacing); font-weight: var(--display-title-weight); text-wrap: balance; }
+    .section-copy { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.18rem); line-height: 1.75; max-width: 680px; margin: 24px 0 0; text-wrap: pretty; }
+
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: var(--header-h); transition: .28s ease;
+    }
+    .header.scrolled {
+      background: rgba(250,247,242,.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(17,24,39,.07);
+      box-shadow: 0 12px 36px rgba(42,32,23,.05);
+    }
+    .nav { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 26px; }
+    .brand { display:flex; align-items:center; flex:0 0 auto; }
+    .brand img { width:192px; height:auto; }
+    .nav-actions { display:flex; align-items:center; gap:20px; }
+    .language-switcher { position:relative; }
+    .language { height:44px; padding:0 2px; border:0; background:transparent; display:inline-flex; align-items:center; justify-content:center; gap:6px; color:var(--ink-2); font-size:.95rem; line-height:1; white-space:nowrap; }
+    .language span { display:inline-flex; align-items:center; line-height:1; }
+    .language svg { width:12px; height:12px; display:block; flex:0 0 auto; transition:transform .18s ease; }
+    .language[aria-expanded="true"] svg { transform:rotate(180deg); }
+    .language:focus-visible, .language-option:focus-visible { outline:3px solid rgba(255,90,20,.22); outline-offset:3px; }
+    .language-menu { position:absolute; top:calc(100% + 8px); right:0; z-index:120; min-width:164px; padding:7px; border-radius:14px; background:rgba(255,255,255,.98); border:1px solid rgba(17,24,39,.10); box-shadow:0 18px 46px rgba(26,31,42,.16); }
+    .language-menu[hidden] { display:none; }
+    .language-option { width:100%; min-height:42px; padding:0 12px; border:0; border-radius:9px; background:transparent; color:var(--ink-2); display:flex; align-items:center; text-align:left; white-space:nowrap; }
+    .language-option:hover { background:rgba(255,90,20,.07); color:var(--ink); }
+    .language-option[aria-checked="true"] { color:var(--ink); font-weight:730; }
+    .primary-btn, .secondary-btn {
+      min-height: 48px; padding: 0 24px; border-radius: 12px; display:inline-flex; align-items:center; justify-content:center; gap:9px; font-weight:720; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .primary-btn { background: linear-gradient(135deg, var(--orange), #ff701f); color:white; border:0; box-shadow:0 14px 28px rgba(255,90,20,.22); }
+    .primary-btn:hover { transform: translateY(-2px); box-shadow:0 18px 34px rgba(255,90,20,.28); }
+    .secondary-btn { background:rgba(255,255,255,.64); border:1px solid rgba(255,90,20,.50); color:var(--ink); }
+    .secondary-btn:hover { transform: translateY(-2px); background:white; }
+
+    .hero { min-height: clamp(820px, 100svh, 1080px); display:flex; align-items:center; padding: calc(var(--header-h) + 38px) 0 68px; overflow:hidden; background:
+      radial-gradient(circle at 88% 24%, rgba(255,111,43,.22), transparent 31rem),
+      radial-gradient(circle at 8% 18%, rgba(255,255,255,.96), transparent 33rem),
+      linear-gradient(180deg, #fff8f2 0%, #f8efe7 100%); }
+    .hero::before, .hero::after {
+      content:""; position:absolute; border-radius:50%; filter:blur(2px); pointer-events:none;
+    }
+    .hero::before { width:760px; height:760px; right:-260px; top:80px; background:radial-gradient(circle, rgba(255,104,31,.14), rgba(255,104,31,0) 66%); }
+    .hero::after { width:920px; height:420px; left:-220px; bottom:-220px; border:1px solid rgba(255,110,45,.22); transform:rotate(-8deg); box-shadow:0 0 0 18px rgba(255,110,45,.035), 0 0 0 36px rgba(255,110,45,.025), 0 0 0 54px rgba(255,110,45,.018); }
+    .hero-grid { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:56px; }
+    .hero h1 { margin:0; max-width:680px; font-size:var(--display-title-size); line-height:var(--display-title-line); letter-spacing:var(--display-title-spacing); font-weight:var(--display-title-weight); text-wrap:balance; }
+    .hero-copy { max-width:570px; margin:18px 0 0; color:var(--muted); line-height:1.62; font-size:clamp(1rem,1.18vw,1.1rem); }
+    .hero-actions { margin-top:22px; display:flex; gap:14px; flex-wrap:wrap; }
+
+    .video-teaser {
+      position:relative; max-width:700px; margin-left:auto; border-radius:30px; padding:10px; background:rgba(255,255,255,.66); border:1px solid rgba(255,255,255,.9); box-shadow:var(--shadow); transform:perspective(1400px) rotateY(-2deg) rotateX(1deg); overflow:visible;
+    }
+    .video-teaser img { width:100%; border-radius:22px; aspect-ratio:1.18/1; object-fit:cover; object-position:center; filter:saturate(.92) contrast(1.01); }
+    .video-teaser::after { content:""; position:absolute; inset:18% -11% -11% 20%; background:radial-gradient(circle, rgba(255,105,33,.22), transparent 65%); filter:blur(22px); z-index:-1; }
+    .play-button { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:78px; height:78px; border-radius:50%; border:1px solid rgba(255,255,255,.9); background:rgba(255,255,255,.9); box-shadow:0 20px 50px rgba(20,20,20,.22); display:grid; place-items:center; z-index:4; transition:.24s; }
+    .play-button:hover { transform:translate(-50%,-50%) scale(1.05); }
+    .play-button svg { margin-left:6px; }
+    .video-teaser.is-playing .play-button { opacity:0; pointer-events:none; transform:translate(-50%,-50%) scale(.8); }
+    .demo-progress { position:absolute; left:10%; right:31%; bottom:11.5%; height:3px; background:rgba(255,255,255,.28); overflow:hidden; border-radius:999px; z-index:4; }
+    .demo-progress span { display:block; width:16%; height:100%; background:var(--orange); border-radius:inherit; }
+    .video-teaser.is-playing .demo-progress span { animation: demoProgress 7.2s linear forwards; }
+    .live-chip { position:absolute; top:22px; left:24px; z-index:5; padding:8px 12px; border-radius:999px; color:white; background:rgba(12,18,28,.58); backdrop-filter:blur(10px); font-size:.8rem; display:flex; gap:8px; align-items:center; }
+    .live-dot { width:8px; height:8px; border-radius:50%; background:#54d38a; box-shadow:0 0 0 6px rgba(84,211,138,.12); }
+    @keyframes demoProgress { to { width:100%; } }
+
+    [data-video-src] { cursor:pointer; }
+    .video-modal[hidden] { display:none; }
+    .video-modal {
+      position:fixed; inset:0; z-index:1000; display:grid; place-items:center; padding:72px 38px 38px;
+      background:rgba(12,14,18,.79); backdrop-filter:blur(7px); -webkit-backdrop-filter:blur(7px);
+      animation:modalFadeIn .2s ease both;
+    }
+    .video-dialog {
+      position:relative; width:min(1420px, calc(100vw - 76px)); max-height:calc(100svh - 110px);
+      border-radius:18px; background:#050505; box-shadow:0 34px 100px rgba(0,0,0,.46);
+      animation:modalScaleIn .24s cubic-bezier(.2,.75,.2,1) both;
+    }
+    .video-dialog video {
+      display:block; width:100%; max-height:calc(100svh - 110px); aspect-ratio:16/9;
+      border-radius:18px; background:#000; object-fit:contain;
+    }
+    .video-close {
+      position:absolute; right:-2px; top:-58px; width:48px; height:48px; border:1px solid rgba(255,255,255,.26);
+      border-radius:50%; display:grid; place-items:center; color:#fff; background:rgba(255,255,255,.16);
+      backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); transition:background .18s ease, transform .18s ease;
+    }
+    .video-close:hover { background:rgba(255,255,255,.28); transform:scale(1.04); }
+    .video-close:focus-visible { outline:3px solid rgba(255,112,31,.9); outline-offset:3px; }
+    .video-close svg { width:22px; height:22px; }
+    body.video-open { overflow:hidden; }
+    @keyframes modalFadeIn { from { opacity:0; } }
+    @keyframes modalScaleIn { from { opacity:0; transform:translateY(12px) scale(.985); } }
+
+    /* Clean, Cornerstone-style section blocks: no blurred gradient transitions. */
+    .workflow-section {
+      background: var(--section-stone);
+      border-top: 1px solid rgba(17,24,39,.045);
+    }
+    #roleplay {
+      background: var(--section-peach);
+      border-top: 1px solid rgba(17,24,39,.035);
+    }
+    #knowledge {
+      background: var(--section-stone);
+      border-top: 1px solid rgba(17,24,39,.045);
+    }
+    .localization-section {
+      background: var(--section-blush);
+      border-top: 1px solid rgba(17,24,39,.035);
+    }
+    .cta-section {
+      color: #fff;
+      background: var(--section-navy);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .cta-section .eyebrow { color: #ff8a4e; }
+    .cta-section .section-title { color: #fff; }
+    .cta-section .section-copy { color: rgba(255,255,255,.68); }
+    .cta-section .benefit { color: #fff; }
+    .cta-section .feature-icon {
+      color: #ff8a4e;
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.13);
+    }
+    .workflow-head { text-align:center; display:flex; flex-direction:column; align-items:center; }
+    .workflow-head .section-title { max-width:900px; }
+    .workflow-head .section-copy { text-align:center; max-width:760px; }
+    .workflow { --progress:0%; position:relative; margin-top:54px; display:grid; grid-template-columns:repeat(6,1fr); gap:24px; }
+    .workflow::before, .workflow::after { content:""; position:absolute; top:17px; height:2px; left:8.2%; right:8.2%; border-radius:999px; }
+    .workflow::before { background:rgba(255,90,20,.16); }
+    .workflow::after { right:auto; width:var(--progress); max-width:83.6%; background:linear-gradient(90deg,var(--orange),#ff9b67); transition:width 1.4s cubic-bezier(.2,.8,.2,1); }
+    .workflow-card { position:relative; z-index:1; text-align:center; padding:0 2px; background:transparent; border:0; transition:.25s; }
+    .workflow-card:hover { transform:translateY(-3px); }
+    .step-dot { width:34px; height:34px; margin:0 auto 18px; border-radius:50%; display:grid; place-items:center; background:#fff; border:1px solid rgba(255,90,20,.28); color:var(--orange); font-size:.8rem; font-weight:760; box-shadow:0 5px 14px rgba(255,90,20,.07); transform:scale(.9); opacity:.7; transition:.4s; }
+    .workflow-card.active .step-dot { transform:scale(1); opacity:1; background:var(--orange); color:#fff; }
+    .workflow-card h3 { margin:0 0 9px; font-size:1.12rem; line-height:1.2; letter-spacing:-.015em; font-weight:730; }
+    .workflow-card p { margin:0 auto; color:var(--muted); font-size:.82rem; line-height:1.55; max-width:158px; text-wrap:pretty; }
+    .workflow-outcome { margin-top:58px; padding:28px 32px; border-top:1px solid rgba(17,24,39,.08); border-bottom:1px solid rgba(17,24,39,.08); display:grid; grid-template-columns:1.05fr 1.95fr; gap:44px; align-items:center; }
+    .workflow-outcome .summary-tag { display:inline-flex; align-items:center; gap:8px; color:var(--orange); font-size:.78rem; font-weight:720; letter-spacing:.01em; }
+    .workflow-outcome .summary-tag::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 5px rgba(255,90,20,.10); }
+    .workflow-outcome h3 { margin:13px 0 0; max-width:460px; font-size:1.5rem; line-height:1.2; letter-spacing:-.025em; text-wrap:balance; }
+    .outcome-stages { display:grid; grid-template-columns:repeat(3,1fr); }
+    .outcome-stage { padding:4px 24px; border-left:1px solid rgba(17,24,39,.08); }
+    .outcome-stage:first-child { border-left:0; padding-left:0; }
+    .outcome-stage span { display:block; margin-bottom:7px; color:var(--orange); font-size:.75rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase; }
+    .outcome-stage strong { display:block; margin-bottom:5px; font-size:.97rem; }
+    .outcome-stage p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.52; }
+
+    .roleplay-grid, .knowledge-grid { display:grid; grid-template-columns:.82fr 1.18fr; gap:70px; align-items:center; }
+    .feature-list { margin-top:42px; display:grid; gap:14px; }
+    .feature-line { display:flex; align-items:flex-start; gap:14px; color:var(--ink-2); }
+    .feature-icon { flex:0 0 42px; width:42px; height:42px; border-radius:12px; background:var(--orange-soft); color:var(--orange); display:grid; place-items:center; border:1px solid rgba(255,90,20,.14); }
+    .feature-line strong { display:block; margin:2px 0 4px; }
+    .feature-line span { color:var(--muted); font-size:.92rem; line-height:1.5; text-wrap:pretty; }
+
+    .roleplay-stage { position:relative; padding:14px; border-radius:30px; background:rgba(255,255,255,.74); border:1px solid rgba(255,255,255,.95); box-shadow:var(--shadow); }
+    .roleplay-stage img { border-radius:22px; width:100%; aspect-ratio:1.25/1; object-fit:cover; }
+    .roleplay-stage .play-button { left:50%; top:50%; width:84px; height:84px; }
+    .roleplay-stage .demo-progress { bottom:12%; left:8%; right:32%; }
+    .language-strip { margin-top:34px; display:flex; gap:8px; flex-wrap:nowrap; align-items:center; white-space:nowrap; overflow-x:auto; overflow-y:hidden; scrollbar-width:none; }
+    .language-strip::-webkit-scrollbar { display:none; }
+    .language-strip .label { color:var(--muted); margin-right:4px; font-size:.86rem; flex:0 0 auto; }
+    .pill { padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:rgba(255,255,255,.7); color:var(--ink-2); font-size:.82rem; flex:0 0 auto; }
+
+    .knowledge-panel { position:relative; border-radius:28px; padding:34px; background:rgba(255,255,255,.76); border:1px solid rgba(255,255,255,.94); box-shadow:var(--shadow); overflow:hidden; }
+    .knowledge-panel::before { content:""; position:absolute; width:300px; height:300px; border-radius:50%; right:-120px; top:-120px; background:radial-gradient(circle, rgba(255,90,20,.13), transparent 70%); }
+    .ask-box { position:relative; z-index:1; display:flex; align-items:center; gap:12px; padding:18px 20px; border-radius:16px; background:white; border:1px solid rgba(255,90,20,.23); box-shadow:0 12px 30px rgba(61,44,31,.06); }
+    .ask-box input { flex:1; border:0; outline:0; background:transparent; color:var(--ink); min-width:0; }
+    .send-btn { width:42px; height:42px; border:0; border-radius:12px; background:var(--orange); color:white; display:grid; place-items:center; }
+    .suggestions { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 24px; }
+    .suggestion { border:1px solid var(--line); border-radius:999px; padding:9px 13px; color:var(--ink-2); background:rgba(255,255,255,.68); font-size:.8rem; }
+    .answer-card { opacity:0; transform:translateY(12px); transition:.55s; background:rgba(255,255,255,.88); border:1px solid var(--line); border-radius:18px; padding:22px; }
+    .knowledge-panel.show-answer .answer-card { opacity:1; transform:none; }
+    .answer-title { display:flex; align-items:center; gap:9px; font-weight:760; margin-bottom:12px; }
+    .answer-card p { color:var(--muted); line-height:1.62; margin:0; }
+    .source-row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; }
+    .source { padding:14px; border-radius:12px; background:#fffaf6; border:1px solid rgba(255,90,20,.10); font-size:.78rem; color:var(--ink-2); }
+    .source small { display:block; color:var(--muted); margin-top:6px; }
+    .knowledge-features { margin-top:28px; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+    .mini-card { padding:20px; border-radius:16px; border:1px solid var(--line); background:rgba(255,255,255,.6); }
+    .knowledge-features .feature-icon { width:64px; height:64px; border-radius:16px; border-color:rgba(255,90,20,.18); box-shadow:0 8px 18px rgba(255,90,20,.06); background:rgba(255,241,233,.92); }
+    .knowledge-features .feature-icon svg { width:32px; height:32px; stroke:currentColor; stroke-width:1.9; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+    .knowledge-features .feature-icon img { width:30px; height:30px; display:block; }
+    .mini-card strong { display:block; margin:16px 0 8px; }
+    .mini-card p { margin:0; color:var(--muted); font-size:.82rem; line-height:1.5; }
+
+    .localization-section { overflow:hidden; }
+    .localization-section::after { content:""; position:absolute; width:820px; height:340px; right:-220px; top:90px; border-radius:50%; border:1px solid rgba(255,90,20,.16); box-shadow:0 0 0 24px rgba(255,90,20,.028), 0 0 0 48px rgba(255,90,20,.018), 0 0 0 72px rgba(255,90,20,.012); transform:rotate(-12deg); }
+    .local-grid { position:relative; z-index:1; margin-top:60px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .local-card { min-height:420px; padding:30px; border-radius:24px; background:rgba(255,255,255,.7); border:1px solid rgba(255,255,255,.92); box-shadow:0 22px 50px rgba(50,37,25,.08); }
+    .local-card h3 { font-size:1.35rem; margin:18px 0 12px; text-wrap:balance; }
+    .local-card > p { color:var(--muted); line-height:1.6; margin:0; text-wrap:pretty; }
+    .lang-chips { display:flex; flex-wrap:wrap; gap:10px; margin-top:26px; }
+    .lang-chip { border:1px solid var(--line); background:#fff; border-radius:10px; padding:10px 12px; font-size:.8rem; color:var(--ink); }
+    .rtl-preview { margin-top:30px; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; }
+    .mini-ui { height:126px; border-radius:13px; border:1px solid var(--line); background:#fff; padding:13px; display:grid; grid-template-columns:28% 1fr; gap:10px; }
+    .mini-ui.rtl { direction:rtl; }
+    .mini-sidebar { background:#f5f6f8; border-radius:7px; }
+    .mini-content { display:grid; gap:8px; }
+    .mini-line { height:10px; background:#eef0f3; border-radius:99px; }
+    .mini-line.accent { background:#ffb68e; width:58%; }
+    .format-list { margin-top:25px; display:grid; gap:10px; }
+    .format-row { padding:13px 14px; border-radius:11px; background:white; border:1px solid var(--line); display:flex; justify-content:space-between; gap:16px; color:var(--ink-2); font-size:.84rem; }
+    .format-row span:last-child { color:var(--muted); text-align:right; }
+    .footnote { display:flex; gap:9px; align-items:center; margin-top:22px; color:var(--muted); font-size:.83rem; }
+
+    .cta-section { padding-bottom:150px; }
+    .cta-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:78px; align-items:center; }
+    .benefits { display:grid; gap:18px; margin-top:40px; }
+    .benefit { display:flex; align-items:center; gap:16px; font-weight:660; }
+    .form-card { color:var(--ink); background:#f7f8fa; border:1px solid rgba(255,255,255,.96); border-radius:28px; padding:34px; box-shadow:var(--shadow); }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .field { display:grid; gap:8px; }
+    .field.full { grid-column:1/-1; }
+    .field label { color:#344054; font-weight:680; font-size:.88rem; }
+    .field input, .field select, .field textarea { width:100%; border:1px solid rgba(17,24,39,.12); outline:0; border-radius:12px; background:#fff; color:var(--ink); padding:15px 16px; transition:.2s; }
+    .field select { appearance:none; -webkit-appearance:none; padding-right:54px; background-image:url("assets/chevron-down.svg"); background-repeat:no-repeat; background-position:right 22px center; background-size:18px 18px; }
+    .field input::placeholder, .field textarea::placeholder { color:#98a2b3; opacity:1; }
+    .field textarea { min-height:124px; resize:vertical; }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color:rgba(255,90,20,.65); box-shadow:0 0 0 4px rgba(255,90,20,.09); }
+    .submit-btn { width:100%; margin-top:20px; }
+    .privacy { display:flex; justify-content:center; gap:8px; align-items:center; color:#667085; font-size:.79rem; margin-top:15px; text-align:center; }
+
+    [data-reveal] { opacity:0; transform:translateY(34px); transition:opacity .72s ease, transform .72s cubic-bezier(.22,.75,.2,1); }
+    [data-reveal].revealed { opacity:1; transform:none; }
+
+    @media (min-width: 1061px) and (max-height: 850px) {
+      .hero { min-height: clamp(760px, 100svh, 960px); padding-top: calc(var(--header-h) + 26px); padding-bottom: 54px; }
+      .hero-grid { gap: 38px; }
+      .hero h1 { max-width: 620px; font-size: var(--display-title-size); line-height: var(--display-title-line); letter-spacing: var(--display-title-spacing); }
+      .hero-copy { margin-top: 14px; font-size: .98rem; line-height: 1.55; }
+      .hero-actions { margin-top: 18px; }
+      .video-teaser { max-width: 620px; }
+      .video-teaser img { aspect-ratio: 1.28 / 1; }
+      .play-button { width: 70px; height: 70px; }
+    }
+
+    @media (min-width: 1061px) {
+      .roleplay-grid, .knowledge-grid, .cta-grid { grid-template-columns:1.05fr .95fr; }
+    }
+
+    @media (max-width: 1060px) {
+      .brand img { width:178px; }
+      .hero-grid, .roleplay-grid, .knowledge-grid, .cta-grid { grid-template-columns:1fr; }
+      .hero-grid > *, .roleplay-grid > *, .knowledge-grid > *, .cta-grid > * { min-width:0; }
+      .hero { min-height:auto; padding-top:116px; padding-bottom:56px; }
+      .hero-copy { max-width:680px; }
+      .video-teaser { max-width:760px; margin:20px auto 0; }
+      .workflow { grid-template-columns:repeat(3,1fr); gap:18px; }
+      .workflow::before, .workflow::after { display:none; }
+      .workflow-outcome { grid-template-columns:1fr; }
+      .local-grid { grid-template-columns:1fr; }
+      .local-card { min-height:0; }
+      .knowledge-features { grid-template-columns:repeat(2,1fr); }
+    }
+
+    @media (max-width: 760px) {
+      :root { --header-h:72px; }
+      .container { width:min(100% - 28px, var(--container)); }
+      .section { padding:88px 0; }
+      .nav-actions { gap:10px; }
+      .language { display:inline-flex; width:48px; padding:0; font-size:0; }
+      .language span::after { content:attr(data-short-label); font-size:.78rem; }
+      .language-menu { right:-8px; min-width:150px; }
+      .nav-actions .primary-btn { display:inline-flex; width:auto; padding:0 14px; min-height:42px; white-space:nowrap; font-size:.82rem; }
+      .brand img { width:140px; }
+      .hero { min-height:auto; padding-top:108px; padding-bottom:52px; }
+      .hero-grid { gap:44px; }
+      .hero h1, .section-title { font-size:clamp(2.35rem,9.5vw,3.2rem); letter-spacing:-.024em; line-height:1.05; }
+      .hero-actions { display:grid; grid-template-columns:1fr; }
+      .primary-btn, .secondary-btn { width:100%; }
+      .video-teaser { transform:none; overflow:hidden; }
+      .play-button { width:72px; height:72px; }
+      .workflow { grid-template-columns:1fr; gap:0; margin-top:36px; }
+      .workflow::before { display:block; top:17px; bottom:17px; left:16px; right:auto; width:2px; height:auto; }
+      .workflow::after { display:none; }
+      .workflow-card { display:grid; grid-template-columns:44px minmax(0,1fr); column-gap:14px; row-gap:4px; padding:0 0 20px; text-align:left; }
+      .workflow-card:last-child { padding-bottom:0; }
+      .workflow-card:hover { transform:none; }
+      .workflow-card .step-dot { grid-column:1; grid-row:1 / 3; margin:0; }
+      .workflow-card h3 { grid-column:2; margin:1px 0 2px; }
+      .workflow-card p { grid-column:2; max-width:none; margin:0; font-size:.86rem; line-height:1.5; }
+      .workflow-outcome { margin-top:36px; padding:24px 0; gap:24px; }
+      .outcome-stages { grid-template-columns:1fr; gap:18px; }
+      .outcome-stage, .outcome-stage:first-child { border-left:0; border-top:1px solid rgba(17,24,39,.08); padding:18px 0 0; }
+      .language-strip { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; align-items:stretch; white-space:normal; overflow:visible; }
+      .language-strip .label { grid-column:1 / -1; margin:0 0 2px; }
+      .language-strip .pill { display:flex; align-items:center; justify-content:center; text-align:center; }
+      .knowledge-panel { padding:18px; border-radius:22px; }
+      .ask-box { padding:12px 14px; }
+      .suggestions { display:grid; grid-template-columns:1fr; gap:8px; margin:12px 0 16px; overflow:visible; }
+      .suggestion { width:100%; padding:8px 11px; white-space:normal; text-align:left; }
+      .answer-card { padding:17px; }
+      .source-row { display:grid; grid-template-columns:1fr; gap:8px; margin-top:14px; overflow:visible; }
+      .source { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px; }
+      .source small { margin-top:0; text-align:right; }
+      .knowledge-features { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; overflow:visible; padding-bottom:0; }
+      .mini-card { min-width:0; padding:16px; }
+      .knowledge-features .feature-icon { width:50px; height:50px; border-radius:14px; }
+      .knowledge-features .feature-icon svg { width:26px; height:26px; }
+      .knowledge-features .feature-icon img { width:25px; height:25px; }
+      .mini-card strong { margin:13px 0 6px; font-size:.92rem; line-height:1.25; }
+      .mini-card p { font-size:.78rem; line-height:1.45; }
+      .local-grid { gap:14px; }
+      .form-grid { grid-template-columns:1fr; }
+      .field.full { grid-column:auto; }
+      .form-card { padding:22px; }
+      .video-modal { padding:64px 12px 20px; }
+      .video-dialog { width:100%; max-height:calc(100svh - 84px); border-radius:12px; }
+      .video-dialog video { max-height:calc(100svh - 84px); border-radius:12px; }
+      .video-close { top:-52px; right:2px; width:42px; height:42px; }
+    }
+
+    @media (orientation: landscape) and (max-height: 600px) {
+      .video-modal { padding:0; background:#000; }
+      .video-dialog { width:100vw; height:100svh; max-height:100svh; border-radius:0; box-shadow:none; }
+      .video-dialog video { width:100%; height:100svh; max-height:100svh; border-radius:0; object-fit:contain; }
+      .video-close { top:12px; right:12px; z-index:8; width:42px; height:42px; background:rgba(15,18,24,.64); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+      [data-reveal] { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="siteHeader">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="ZhiNiao International home">
+        <img src="assets/pingan-zhiniao-bilingual-logo.png" alt="Zhiniao 知鸟" width="1112" height="334" decoding="async" />
+      </a>
+      <div class="nav-actions">
+        <div class="language-switcher">
+          <button class="language" id="languageToggle" type="button" aria-label="Language: English" aria-haspopup="menu" aria-expanded="false">
+            <span id="languageLabel" data-short-label="EN">English</span>
+            <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="language-menu" id="languageMenu" role="menu" aria-label="Select language" hidden>
+            <button class="language-option" type="button" role="menuitemradio" aria-checked="true" data-lang="en">English</button>
+            <button class="language-option" type="button" role="menuitemradio" aria-checked="false" data-lang="vi">Tiếng Việt</button>
+          </div>
+        </div>
+        <a class="primary-btn" href="#demo">Book a Demo</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div data-reveal>
+          <p class="eyebrow">An AI-Native Platform Built for Talent Development</p>
+          <h1>People Inspire, AI Empowers</h1>
+          <p class="hero-copy">Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory.</p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#demo">Book a Demo <span aria-hidden="true">→</span></a>
+            <a class="secondary-btn" href="#workflow">Explore the Platform</a>
+          </div>
+        </div>
+
+        <div class="video-teaser" data-reveal data-demo data-video-src="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/overview-en.mp4" data-video-src-vi="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/overview-vi.mp4" data-video-title="ZhiNiao International overview video">
+          <img src="assets/hero-workscene.png" alt="Professional workplace training scene" fetchpriority="high" decoding="async" />
+          <div class="live-chip"><span class="live-dot"></span> Product demo</div>
+          <button class="play-button" aria-label="Play ZhiNiao International overview video" data-play>
+            <svg width="31" height="35" viewBox="0 0 31 35" aria-hidden="true"><path fill="#ff5a14" d="M29.4 15.1a2.7 2.7 0 0 1 0 4.8L4.1 34.4A2.7 2.7 0 0 1 0 32.1V2.9A2.7 2.7 0 0 1 4.1.6L29.4 15Z"/></svg>
+          </button>
+          <div class="demo-progress"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section workflow-section" id="workflow">
+      <div class="container">
+        <div class="workflow-head" data-reveal>
+          <p class="eyebrow product-name">TalentForce</p>
+          <h2 class="section-title">Build an end-to-end talent development journey</h2>
+          <p class="section-copy">TalentForce connects learning, practice, assessment, administration, and analytics to support enterprise talent development.</p>
+        </div>
+        <div class="workflow" id="workflowTrack">
+          <article class="workflow-card"><div class="step-dot">1</div><h3>Learning</h3><p>Create personalized learning paths based on each employee’s role and current capabilities.</p></article>
+          <article class="workflow-card"><div class="step-dot">2</div><h3>Practice</h3><p>Practice in realistic workplace simulations with AI Coach.</p></article>
+          <article class="workflow-card"><div class="step-dot">3</div><h3>Assess</h3><p>Manage question banks, exams, and results.</p></article>
+          <article class="workflow-card"><div class="step-dot">4</div><h3>Administer</h3><p>Manage users, roles, permissions, and organizational structures.</p></article>
+          <article class="workflow-card"><div class="step-dot">5</div><h3>Engage</h3><p>Keep learners on track with reminders and incentives.</p></article>
+          <article class="workflow-card"><div class="step-dot">6</div><h3>Analyze</h3><p>Track progress, performance, and learning outcomes.</p></article>
+        </div>
+        <div class="workflow-outcome" data-reveal>
+          <div>
+            <span class="summary-tag">An AI-native suite for talent development</span>
+            <h3>Drive measurable business impact and sustainable growth</h3>
+          </div>
+          <div class="outcome-stages">
+            <div class="outcome-stage"><span>01</span><strong>Create &amp; Deliver</strong><p>Transform content from multiple sources and formats into structured knowledge with AI WikiFactory.</p></div>
+            <div class="outcome-stage"><span>02</span><strong>Practice &amp; Assess</strong><p>Combine AI Coach simulations with question banks and assessments to validate learning outcomes.</p></div>
+            <div class="outcome-stage"><span>03</span><strong>Operate &amp; Improve</strong><p>Use learning progress and performance data to identify skill gaps and improve talent development.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roleplay">
+      <div class="container roleplay-grid">
+        <div data-reveal>
+          <p class="eyebrow product-name">AI Coach</p>
+          <h2 class="section-title">Learn by doing in realistic workplace simulations</h2>
+          <p class="section-copy">Lifelike AI avatars and AI-generated scripts let employees practice in realistic workplace simulations.</p>
+          <div class="feature-list">
+            <div class="feature-line"><div class="feature-icon">✦</div><div><strong>AI-generated scripts</strong><span>Turn training materials into scripts for realistic workplace scenarios.</span></div></div>
+            <div class="feature-line"><div class="feature-icon">↔</div><div><strong>Multi-turn conversations</strong><span>Engage in natural, dynamic multi-round dialogue drills with AI.</span></div></div>
+            <div class="feature-line"><div class="feature-icon">◉</div><div><strong>Performance analytics</strong><span>Access performance data for every practice session.</span></div></div>
+          </div>
+          <div class="language-strip"><span class="label">Supported languages</span><span class="pill">Mandarin</span><span class="pill">Cantonese</span><span class="pill">English</span><span class="pill">Vietnamese</span></div>
+        </div>
+        <div class="roleplay-stage" data-reveal data-demo data-video-src="https://cdn.jsdelivr.net/gh/cccuiyi003/zhiniao-videos@main/ai-roleplay-en.mp4" data-video-title="AI Coach video">
+          <img src="assets/roleplay-mobile-cover.png" alt="AI Coach promotional video preview" loading="lazy" decoding="async" />
+          <button class="play-button" aria-label="Play AI Coach video" data-play>
+            <svg width="29" height="33" viewBox="0 0 31 35" aria-hidden="true"><path fill="#ff5a14" d="M29.4 15.1a2.7 2.7 0 0 1 0 4.8L4.1 34.4A2.7 2.7 0 0 1 0 32.1V2.9A2.7 2.7 0 0 1 4.1.6L29.4 15Z"/></svg>
+          </button>
+          <div class="demo-progress"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="knowledge">
+      <div class="container knowledge-grid">
+        <div data-reveal>
+          <p class="eyebrow product-name">AI Wiki</p>
+          <h2 class="section-title">Turn enterprise knowledge into business value</h2>
+          <p class="section-copy">AI Wiki works with existing knowledge bases and connects employees, experts, and administrators, making it easier to find, share, and apply organizational know-how.</p>
+        </div>
+        <div class="knowledge-panel" id="knowledgePanel" data-reveal>
+          <div class="ask-box">
+            <span aria-hidden="true">✦</span>
+            <input id="knowledgeInput" aria-label="Ask questions about company policies, workflow, or domain knowledge" readonly value="" placeholder="Ask questions about company policies, workflow, or domain knowledge..." />
+            <button class="send-btn" id="knowledgeSend" aria-label="Ask question">➤</button>
+          </div>
+          <div class="suggestions"><button class="suggestion">How to submit an expense claim?</button><button class="suggestion">How to onboard a new client?</button><button class="suggestion">What is our customer data policy?</button></div>
+          <div class="answer-card">
+            <div class="answer-title">✦ Answer</div>
+            <p>Expense claims must be submitted through the company expense system with the required receipts and manager approval.</p>
+            <div class="source-row"><div class="source">Expense Policy<small>Finance · Policy</small></div><div class="source">Employee Handbook<small>HR · Handbook</small></div><div class="source">Expense Guidelines<small>Finance · Guidelines</small></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="container knowledge-features" data-reveal>
+        <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-company-knowledge.svg" alt="" /></div><strong>Company knowledge</strong><p>Connect existing knowledge bases and organize enterprise knowledge for reuse.</p></div>
+        <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-practical-experience.svg" alt="" /></div><strong>Field expertise</strong><p>Capture real cases and tacit know-how as structured, reusable knowledge.</p></div>
+        <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-frontline-questions.svg" alt="" /></div><strong>Frontline questions</strong><p>Collect and categorize frequently asked questions from frontline teams.</p></div>
+        <div class="mini-card"><div class="feature-icon" aria-hidden="true"><img src="assets/icon-unified-qa.svg" alt="" /></div><strong>Unified Q&amp;A hub</strong><p>Help employees find, share, and apply organizational know-how through AI Wiki.</p></div>
+      </div>
+    </section>
+
+    <section class="section localization-section" id="localization">
+      <div class="container">
+        <div data-reveal>
+          <p class="eyebrow section-label">Global service network</p>
+          <h2 class="section-title">Create seamless localized experiences</h2>
+          <p class="section-copy">Adapt UI language, reading direction, and regional formats for all supported markets.</p>
+        </div>
+        <div class="local-grid">
+          <article class="local-card" data-reveal>
+            <div class="feature-icon">A</div><h3>Multilingual interfaces &amp; notifications</h3><p>Deliver platform experiences and notifications in supported languages.</p>
+            <div class="lang-chips"><span class="lang-chip">Simplified Chinese</span><span class="lang-chip">Traditional Chinese</span><span class="lang-chip">English</span><span class="lang-chip">Arabic</span><span class="lang-chip">Malay</span><span class="lang-chip">More</span></div>
+          </article>
+          <article class="local-card" data-reveal>
+            <div class="feature-icon">↔</div><h3>RTL interface support</h3><p>Support right-to-left layouts for languages such as Arabic.</p>
+            <div class="rtl-preview"><div><div class="mini-ui"><div class="mini-sidebar"></div><div class="mini-content"><div class="mini-line accent"></div><div class="mini-line"></div><div class="mini-line"></div><div class="mini-line"></div></div></div><small>LTR</small></div><span>→</span><div><div class="mini-ui rtl"><div class="mini-sidebar"></div><div class="mini-content"><div class="mini-line accent"></div><div class="mini-line"></div><div class="mini-line"></div><div class="mini-line"></div></div></div><small>RTL</small></div></div>
+          </article>
+          <article class="local-card" data-reveal>
+            <div class="feature-icon">◎</div><h3>Regional format support</h3><p>Localize time zones, dates, currencies, and number formats.</p>
+            <div class="format-list" id="formatList"><div class="format-row"><span>Time zone</span><span>(GMT+8) Singapore</span></div><div class="format-row"><span>Date format</span><span>Dec 31&nbsp; 2026</span></div><div class="format-row"><span>Currency format</span><span>SGD 1,234.56</span></div><div class="format-row"><span>Number format</span><span>1,234,567.89</span></div></div>
+          </article>
+        </div>
+        <div class="footnote">ⓘ Feature availability varies across functions and global markets.</div>
+      </div>
+    </section>
+
+    <section class="section cta-section" id="demo">
+      <div class="container cta-grid">
+        <div data-reveal>
+          <p class="eyebrow section-label">Book a Demo</p>
+          <h2 class="section-title">Let's use AI to amplify what people do best</h2>
+          <p class="section-copy">Discover how TalentForce, AI Coach, AI Wiki, and AI WikiFactory support talent development, so everyone can make a greater impact.</p>
+          <div class="benefits"><div class="benefit"><div class="feature-icon">⌘</div>Explore TalentForce’s training workflow</div><div class="benefit"><div class="feature-icon">✦</div>See AI Coach in action</div><div class="benefit"><div class="feature-icon">◎</div>Explore localization support for your region</div></div>
+        </div>
+        <form class="form-card" id="demoForm" data-reveal>
+          <div class="form-grid">
+            <div class="field"><label for="name">Full Name</label><input id="name" name="name" required placeholder="Enter your full name" /></div>
+            <div class="field"><label for="email">Work Email</label><input id="email" name="email" type="email" required placeholder="name@company.com" /></div>
+            <div class="field full"><label for="company">Company</label><input id="company" name="company" required placeholder="Enter your company name" /></div>
+            <div class="field full"><label for="region">Country or Region</label><select id="region" name="region" required><option value="">Select your country or region</option><option>Singapore</option><option>Vietnam</option><option>Malaysia</option><option>United Arab Emirates</option><option>Others</option></select></div>
+            <div class="field full"><label for="needs">Training Requirement</label><textarea id="needs" name="needs" placeholder="Tell us about your training goals and priorities"></textarea></div>
+          </div>
+          <button class="primary-btn submit-btn" type="submit">Request a Personalized Demo</button>
+          <div class="privacy">🔒 Your information will only be used in responding to your inquiry.</div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="video-modal" id="videoModal" hidden aria-hidden="true">
+    <div class="video-dialog" role="dialog" aria-modal="true" aria-label="Video player">
+      <button class="video-close" id="videoClose" type="button" aria-label="Close video">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6 18 18M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+      <video id="modalVideo" controls playsinline webkit-playsinline preload="metadata"></video>
+    </div>
+  </div>
+
+  <script>
+    const vietnamese = {
+      "ZhiNiao International home": "Trang chủ ZhiNiao International",
+      "Language: English": "Ngôn ngữ: Tiếng Anh",
+      "Select language": "Chọn ngôn ngữ",
+      "Book a Demo": "Đặt lịch demo",
+      "Explore the Platform": "Khám phá nền tảng",
+      "Professional workplace training scene": "Bối cảnh đào tạo chuyên nghiệp tại nơi làm việc",
+      "Product demo": "Demo sản phẩm",
+      "Play ZhiNiao International overview video": "Phát video giới thiệu ZhiNiao International",
+      "ZhiNiao International overview video": "Video giới thiệu ZhiNiao International",
+      "Learning": "Học tập",
+      "Practice": "Thực hành",
+      "Assess": "Đánh giá",
+      "Manage question banks, exams, and results.": "Quản lý ngân hàng câu hỏi, kỳ thi và kết quả.",
+      "Administer": "Quản trị",
+      "Manage users, roles, permissions, and organizational structures.": "Quản lý người dùng, vai trò, quyền hạn và cơ cấu tổ chức.",
+      "Analyze": "Phân tích",
+      "Track progress, performance, and learning outcomes.": "Theo dõi tiến độ, hiệu suất và kết quả học tập.",
+      "Create & Deliver": "Xây dựng & triển khai",
+      "Practice & Assess": "Thực hành & đánh giá",
+      "Operate & Improve": "Vận hành & cải tiến",
+      "Multi-turn conversations": "Hội thoại nhiều lượt",
+      "Engage in natural, dynamic multi-round dialogue drills with AI.": "Luyện tập các cuộc hội thoại tự nhiên, qua lại với AI.",
+      "Performance analytics": "Phân tích hiệu suất",
+      "Access performance data for every practice session.": "Xem lại dữ liệu hiệu suất của từng phiên thực hành.",
+      "Supported languages": "Ngôn ngữ được hỗ trợ",
+      "Mandarin": "Tiếng Trung Phổ thông",
+      "Cantonese": "Tiếng Quảng Đông",
+      "English": "Tiếng Anh",
+      "Vietnamese": "Tiếng Việt",
+      "Ask questions about company policies, workflow, or domain knowledge": "Hỏi về chính sách, quy trình hoặc kiến thức nội bộ",
+      "Ask questions about company policies, workflow, or domain knowledge...": "Đặt câu hỏi về chính sách, quy trình hoặc kiến thức nội bộ...",
+      "Ask question": "Gửi câu hỏi",
+      "How to submit an expense claim?": "Tôi gửi đề nghị thanh toán chi phí như thế nào?",
+      "How to onboard a new client?": "Quy trình tiếp nhận khách hàng mới như thế nào?",
+      "What is our customer data policy?": "Chính sách dữ liệu khách hàng của công ty quy định những gì?",
+      "✦ Answer": "✦ Câu trả lời",
+      "Expense claims must be submitted through the company expense system with the required receipts and manager approval.": "Đề nghị thanh toán chi phí cần được gửi qua hệ thống quản lý chi phí của công ty, kèm đầy đủ hóa đơn, chứng từ và phê duyệt của quản lý.",
+      "Expense Policy": "Chính sách chi phí",
+      "Finance · Policy": "Tài chính · Chính sách",
+      "Employee Handbook": "Sổ tay nhân viên",
+      "HR · Handbook": "Nhân sự · Sổ tay",
+      "Expense Guidelines": "Hướng dẫn thanh toán chi phí",
+      "Finance · Guidelines": "Tài chính · Hướng dẫn",
+      "Company knowledge": "Tri thức doanh nghiệp",
+      "Field expertise": "Kinh nghiệm thực tiễn",
+      "Frontline questions": "Câu hỏi từ tuyến đầu",
+      "Collect and categorize frequently asked questions from frontline teams.": "Tổng hợp các câu hỏi thường gặp từ đội ngũ tuyến đầu.",
+      "Unified Q&A hub": "Trung tâm hỏi đáp tập trung",
+      "Create seamless localized experiences": "Kiến tạo trải nghiệm bản địa hóa liền mạch",
+      "Adapt UI language, reading direction, and regional formats for all supported markets.": "Điều chỉnh ngôn ngữ giao diện, hướng hiển thị văn bản và định dạng theo từng khu vực được hỗ trợ.",
+      "Multilingual interfaces & notifications": "Giao diện & thông báo đa ngôn ngữ",
+      "Deliver platform experiences and notifications in supported languages.": "Cung cấp trải nghiệm nền tảng và thông báo bằng các ngôn ngữ được hỗ trợ.",
+      "Simplified Chinese": "Tiếng Trung Giản thể",
+      "Traditional Chinese": "Tiếng Trung Phồn thể",
+      "Arabic": "Tiếng Ả Rập",
+      "Malay": "Tiếng Mã Lai",
+      "More": "Khác",
+      "RTL interface support": "Hỗ trợ giao diện RTL",
+      "Support right-to-left layouts for languages such as Arabic.": "Hỗ trợ bố cục từ phải sang trái cho các ngôn ngữ như tiếng Ả Rập.",
+      "Regional format support": "Hỗ trợ định dạng theo khu vực",
+      "Localize time zones, dates, currencies, and number formats.": "Bản địa hóa múi giờ, ngày tháng, tiền tệ và định dạng số.",
+      "Time zone": "Múi giờ",
+      "Date format": "Định dạng ngày",
+      "Currency format": "Định dạng tiền tệ",
+      "Number format": "Định dạng số",
+      "ⓘ Feature availability varies across functions and global markets.": "ⓘ Phạm vi hỗ trợ tùy thuộc vào từng tính năng và thị trường.",
+      "Explore localization support for your region": "Khám phá khả năng bản địa hóa cho thị trường của bạn",
+      "Full Name": "Họ và tên",
+      "Enter your full name": "Nhập họ và tên",
+      "Work Email": "Email công việc",
+      "Company": "Công ty",
+      "Enter your company name": "Nhập tên công ty",
+      "Country or Region": "Quốc gia hoặc khu vực",
+      "Select your country or region": "Chọn quốc gia hoặc khu vực",
+      "Vietnam": "Việt Nam",
+      "United Arab Emirates": "Các Tiểu vương quốc Ả Rập Thống nhất",
+      "Others": "Khác",
+      "Training Requirement": "Nhu cầu đào tạo",
+      "Tell us about your training goals and priorities": "Hãy cho chúng tôi biết mục tiêu và ưu tiên đào tạo của bạn",
+      "Request a Personalized Demo": "Đặt lịch demo theo nhu cầu",
+      "🔒 Your information will only be used in responding to your inquiry.": "🔒 Thông tin của bạn chỉ được sử dụng để phản hồi yêu cầu này.",
+      "Your demo request has been received": "Đã nhận yêu cầu",
+      "Video player": "Trình phát video",
+      "Close video": "Đóng video",
+      "An AI-Native Platform Built for Talent Development": "Nền tảng AI nguyên bản dành cho phát triển nhân tài",
+      "People Inspire, AI Empowers": "Con người truyền cảm hứng, AI trao sức mạnh",
+      "Zhiniao provides end-to-end AI-enabled talent development solutions for enterprises, connecting TalentForce, AI Coach, AI Wiki, and AI WikiFactory.": "Zhiniao cung cấp giải pháp phát triển nhân tài toàn diện ứng dụng AI cho doanh nghiệp, kết nối TalentForce, AI Coach, AI Wiki và AI WikiFactory.",
+      "TalentForce": "TalentForce",
+      "TalentForce connects learning, practice, assessment, administration, and analytics to support enterprise talent development.": "TalentForce kết nối học tập, thực hành, đánh giá, quản trị và phân tích để hỗ trợ phát triển nhân tài trong doanh nghiệp.",
+      "Create personalized learning paths based on each employee’s role and current capabilities.": "Xây dựng lộ trình học tập cá nhân hóa dựa trên vai trò và năng lực hiện tại của từng nhân viên.",
+      "Practice in realistic workplace simulations with AI Coach.": "Thực hành trong các tình huống công việc mô phỏng sát thực tế với AI Coach.",
+      "Engage": "Gắn kết",
+      "Keep learners on track with reminders and incentives.": "Duy trì tiến độ học tập bằng lời nhắc và cơ chế khuyến khích.",
+      "An AI-native suite for talent development": "Bộ giải pháp AI nguyên bản dành cho phát triển nhân tài",
+      "Combine AI Coach simulations with question banks and assessments to validate learning outcomes.": "Kết hợp mô phỏng AI Coach với ngân hàng câu hỏi và đánh giá để xác thực kết quả học tập.",
+      "Use learning progress and performance data to identify skill gaps and improve talent development.": "Sử dụng dữ liệu tiến độ học tập và hiệu suất để xác định khoảng trống kỹ năng và cải thiện hoạt động phát triển nhân tài.",
+      "AI Coach": "AI Coach",
+      "Learn by doing in realistic workplace simulations": "Học qua thực hành trong các tình huống công việc sát thực tế",
+      "Lifelike AI avatars and AI-generated scripts let employees practice in realistic workplace simulations.": "Nhân vật AI sống động và kịch bản do AI tạo giúp nhân viên thực hành trong các tình huống công việc mô phỏng sát thực tế.",
+      "AI-generated scripts": "Kịch bản do AI tạo",
+      "Turn training materials into scripts for realistic workplace scenarios.": "Chuyển tài liệu đào tạo thành kịch bản cho các tình huống công việc sát thực tế.",
+      "AI Coach promotional video preview": "Hình xem trước video giới thiệu AI Coach",
+      "Play AI Coach video": "Phát video AI Coach",
+      "AI Coach video": "Video AI Coach",
+      "AI Wiki": "AI Wiki",
+      "AI Wiki works with existing knowledge bases and connects employees, experts, and administrators, making it easier to find, share, and apply organizational know-how.": "AI Wiki kết nối với các kho tri thức hiện có và liên kết nhân viên, chuyên gia cùng quản trị viên, giúp việc tìm kiếm, chia sẻ và áp dụng tri thức của tổ chức trở nên dễ dàng hơn.",
+      "Connect existing knowledge bases and organize enterprise knowledge for reuse.": "Kết nối các kho tri thức hiện có và tổ chức tri thức doanh nghiệp để tái sử dụng.",
+      "Capture real cases and tacit know-how as structured, reusable knowledge.": "Chuyển các tình huống thực tế và tri thức ngầm thành tri thức có cấu trúc, có thể tái sử dụng.",
+      "Help employees find, share, and apply organizational know-how through AI Wiki.": "Giúp nhân viên tìm kiếm, chia sẻ và áp dụng tri thức của tổ chức thông qua AI Wiki.",
+      "Explore TalentForce’s training workflow": "Khám phá quy trình đào tạo của TalentForce",
+      "See AI Coach in action": "Trải nghiệm AI Coach trong thực tế",
+      "Build an end-to-end talent development journey": "Xây dựng hành trình phát triển nhân tài toàn diện",
+      "Drive measurable business impact and sustainable growth": "Tạo ra tác động kinh doanh có thể đo lường và tăng trưởng bền vững",
+      "Transform content from multiple sources and formats into structured knowledge with AI WikiFactory.": "Chuyển nội dung từ nhiều nguồn và định dạng thành tri thức có cấu trúc với AI WikiFactory.",
+      "Turn enterprise knowledge into business value": "Chuyển tri thức doanh nghiệp thành giá trị kinh doanh",
+      "Global service network": "Mạng lưới dịch vụ toàn cầu",
+      "Let's use AI to amplify what people do best": "Hãy cùng sử dụng AI để phát huy thế mạnh của con người",
+      "Discover how TalentForce, AI Coach, AI Wiki, and AI WikiFactory support talent development, so everyone can make a greater impact.": "Khám phá cách TalentForce, AI Coach, AI Wiki và AI WikiFactory hỗ trợ phát triển nhân tài, để mọi người có thể tạo ra tác động lớn hơn."
+};
+
+    let currentLanguage = 'en';
+    const languageToggle = document.getElementById('languageToggle');
+    const languageLabel = document.getElementById('languageLabel');
+    const languageMenu = document.getElementById('languageMenu');
+    const languageOptions = [...document.querySelectorAll('.language-option')];
+    const originalTitle = document.title;
+    const originalDescription = document.querySelector('meta[name="description"]').content;
+    const originalTextNodes = new Map();
+    const textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        if (node.parentElement.closest('script, style, .language-menu, #languageLabel')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    while (textWalker.nextNode()) originalTextNodes.set(textWalker.currentNode, textWalker.currentNode.nodeValue);
+
+    const originalAttributes = [];
+    ['aria-label', 'placeholder', 'alt', 'data-video-title'].forEach(attribute => {
+      document.querySelectorAll(`[${attribute}]`).forEach(element => originalAttributes.push({ element, attribute, value: element.getAttribute(attribute) }));
+    });
+
+    function localized(value, language = currentLanguage) {
+      return language === 'vi' ? (vietnamese[value] || value) : value;
+    }
+
+    function closeLanguageMenu({ restoreFocus = false } = {}) {
+      languageMenu.hidden = true;
+      languageToggle.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) languageToggle.focus();
+    }
+
+    function applyLanguage(language, { persist = true } = {}) {
+      currentLanguage = language === 'vi' ? 'vi' : 'en';
+      document.documentElement.lang = currentLanguage;
+      document.title = currentLanguage === 'vi' ? 'Phát triển nhân tài ứng dụng AI | ZhiNiao International' : originalTitle;
+      document.querySelector('meta[name="description"]').content = localized(originalDescription);
+
+      originalTextNodes.forEach((original, node) => {
+        const trimmed = original.trim();
+        node.nodeValue = original.replace(trimmed, localized(trimmed));
+      });
+      originalAttributes.forEach(({ element, attribute, value }) => element.setAttribute(attribute, localized(value)));
+
+      const isVietnamese = currentLanguage === 'vi';
+      languageLabel.textContent = isVietnamese ? 'Tiếng Việt' : 'English';
+      languageLabel.dataset.shortLabel = isVietnamese ? 'VI' : 'EN';
+      languageToggle.setAttribute('aria-label', isVietnamese ? 'Ngôn ngữ: Tiếng Việt' : 'Language: English');
+      languageMenu.setAttribute('aria-label', isVietnamese ? 'Chọn ngôn ngữ' : 'Select language');
+      languageOptions.forEach(option => option.setAttribute('aria-checked', String(option.dataset.lang === currentLanguage)));
+      syncKnowledgeLanguage();
+      updateFormats(false);
+
+      const demoForm = document.getElementById('demoForm');
+      if (demoForm.dataset.submitted === 'true') demoForm.querySelector('.submit-btn').textContent = localized('Your demo request has been received');
+      if (persist) {
+        try { localStorage.setItem('zhiniao-language', currentLanguage); } catch (error) {}
+      }
+      closeLanguageMenu();
+    }
+
+    languageToggle.addEventListener('click', () => {
+      const willOpen = languageMenu.hidden;
+      languageMenu.hidden = !willOpen;
+      languageToggle.setAttribute('aria-expanded', String(willOpen));
+      if (willOpen) languageOptions.find(option => option.dataset.lang === currentLanguage)?.focus();
+    });
+    languageOptions.forEach(option => option.addEventListener('click', () => applyLanguage(option.dataset.lang)));
+    document.addEventListener('click', event => {
+      if (!event.target.closest('.language-switcher')) closeLanguageMenu();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !languageMenu.hidden) closeLanguageMenu({ restoreFocus: true });
+    });
+
+    const header = document.getElementById('siteHeader');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 18), { passive: true });
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed'); revealObserver.unobserve(entry.target); } });
+    }, { threshold: .16 });
+    document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
+
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    const videoDialog = videoModal.querySelector('.video-dialog');
+    const videoClose = document.getElementById('videoClose');
+    let lastVideoTrigger = null;
+
+    async function lockVideoLandscape() {
+      if (!window.screen?.orientation || typeof window.screen.orientation.lock !== 'function') return;
+      try { await window.screen.orientation.lock('landscape'); } catch (error) {}
+    }
+
+    function unlockVideoOrientation() {
+      if (!window.screen?.orientation || typeof window.screen.orientation.unlock !== 'function') return;
+      try { window.screen.orientation.unlock(); } catch (error) {}
+    }
+
+    function isVideoFullscreen() {
+      const fullscreenElement = document.fullscreenElement || document.webkitFullscreenElement;
+      return fullscreenElement === modalVideo || fullscreenElement === videoDialog || Boolean(modalVideo.webkitDisplayingFullscreen);
+    }
+
+    function handleVideoFullscreenChange() {
+      const videoIsFullscreen = isVideoFullscreen();
+      if (videoIsFullscreen) lockVideoLandscape();
+      else unlockVideoOrientation();
+    }
+
+    function openVideo(trigger) {
+      lastVideoTrigger = trigger.querySelector('[data-play]') || trigger;
+      modalVideo.src = currentLanguage === 'vi' && trigger.dataset.videoSrcVi ? trigger.dataset.videoSrcVi : trigger.dataset.videoSrc;
+      videoDialog.setAttribute('aria-label', trigger.dataset.videoTitle || localized('Video player'));
+      videoModal.hidden = false;
+      videoModal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('video-open');
+      videoClose.focus();
+      modalVideo.play().catch(() => {});
+    }
+
+    function closeVideo() {
+      if (document.fullscreenElement && document.exitFullscreen) document.exitFullscreen().catch(() => {});
+      else if (document.webkitFullscreenElement && document.webkitExitFullscreen) document.webkitExitFullscreen();
+      if (modalVideo.webkitDisplayingFullscreen && modalVideo.webkitExitFullscreen) {
+        try { modalVideo.webkitExitFullscreen(); } catch (error) {}
+      }
+      unlockVideoOrientation();
+      modalVideo.pause();
+      modalVideo.removeAttribute('src');
+      modalVideo.load();
+      videoModal.hidden = true;
+      videoModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('video-open');
+      if (lastVideoTrigger) lastVideoTrigger.focus();
+    }
+
+    document.querySelectorAll('[data-video-src]').forEach(trigger => {
+      trigger.addEventListener('click', () => openVideo(trigger));
+    });
+    document.addEventListener('fullscreenchange', handleVideoFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleVideoFullscreenChange);
+    modalVideo.addEventListener('webkitbeginfullscreen', lockVideoLandscape);
+    modalVideo.addEventListener('webkitendfullscreen', () => {
+      unlockVideoOrientation();
+    });
+    videoClose.addEventListener('click', closeVideo);
+    videoModal.addEventListener('click', event => {
+      if (event.target === videoModal) closeVideo();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !videoModal.hidden) closeVideo();
+    });
+
+    const workflow = document.getElementById('workflowTrack');
+    const workflowCards = [...workflow.querySelectorAll('.workflow-card')];
+    const workflowObserver = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      workflow.style.setProperty('--progress', '83.4%');
+      workflowCards.forEach((card, index) => setTimeout(() => card.classList.add('active'), index * 180));
+      workflowObserver.disconnect();
+    }, { threshold: .35 });
+    workflowObserver.observe(workflow);
+
+    const knowledgePanel = document.getElementById('knowledgePanel');
+    const knowledgeInput = document.getElementById('knowledgeInput');
+    let typed = false;
+    let knowledgeTimer = null;
+    const knowledgeQuestion = 'How to submit an expense claim?';
+    let activeKnowledgeQuestion = knowledgeQuestion;
+
+    function syncKnowledgeLanguage() {
+      if (knowledgeTimer) clearInterval(knowledgeTimer);
+      if (typed || knowledgeInput.value) knowledgeInput.value = localized(activeKnowledgeQuestion);
+    }
+
+    function runKnowledgeDemo() {
+      if (typed) return; typed = true;
+      const question = localized(knowledgeQuestion);
+      let i = 0; knowledgeInput.value = '';
+      knowledgeTimer = setInterval(() => {
+        knowledgeInput.value += question[i++] || '';
+        if (i >= question.length) { clearInterval(knowledgeTimer); knowledgeTimer = null; setTimeout(() => knowledgePanel.classList.add('show-answer'), 380); }
+      }, 48);
+    }
+    const knowledgeObserver = new IntersectionObserver(entries => { if (entries[0].isIntersecting) { runKnowledgeDemo(); knowledgeObserver.disconnect(); } }, { threshold: .45 });
+    knowledgeObserver.observe(knowledgePanel);
+    function showKnowledgeAnswer(questionText, questionKey = activeKnowledgeQuestion) {
+      if (knowledgeTimer) clearInterval(knowledgeTimer);
+      knowledgeTimer = null;
+      typed = true;
+      activeKnowledgeQuestion = questionKey;
+      knowledgeInput.value = questionText || localized(knowledgeQuestion);
+      knowledgePanel.classList.add('show-answer');
+    }
+    document.getElementById('knowledgeSend').addEventListener('click', () => showKnowledgeAnswer(knowledgeInput.value));
+    document.querySelectorAll('.suggestion').forEach(btn => {
+      const questionKey = btn.textContent.trim();
+      btn.addEventListener('click', () => showKnowledgeAnswer(btn.textContent, questionKey));
+    });
+
+    const formats = {
+      en: [
+        ['(GMT+8) Singapore','Dec 31  2026','SGD 1,234.56','1,234,567.89'],
+        ['(GMT+4) Dubai','31/12/2026','AED 1,234.56','1,234,567.89'],
+        ['(GMT+7) Ho Chi Minh City','31-12-2026','VND 1.234.567','1.234.567,89']
+      ],
+      vi: [
+        ['(GMT+8) Singapore','31/12/2026','SGD 1.234,56','1.234.567,89'],
+        ['(GMT+4) Dubai','31/12/2026','AED 1.234,56','1.234.567,89'],
+        ['(GMT+7) TP. Hồ Chí Minh','31-12-2026','VND 1.234.567','1.234.567,89']
+      ]
+    };
+    let formatIndex = 0;
+
+    function updateFormats(animate = true) {
+      document.querySelectorAll('#formatList .format-row span:last-child').forEach((el, i) => {
+        if (animate) el.animate([{opacity:.2, transform:'translateY(4px)'},{opacity:1, transform:'none'}], {duration:380});
+        el.textContent = formats[currentLanguage][formatIndex][i];
+      });
+    }
+
+    setInterval(() => {
+      formatIndex = (formatIndex + 1) % formats.en.length;
+      updateFormats();
+    }, 3200);
+
+    const demoForm = document.getElementById('demoForm');
+    demoForm.addEventListener('submit', event => {
+      event.preventDefault();
+      demoForm.dataset.submitted = 'true';
+      demoForm.querySelector('.submit-btn').textContent = localized('Your demo request has been received');
+    });
+
+    let savedLanguage = 'en';
+    try { savedLanguage = localStorage.getItem('zhiniao-language') || 'en'; } catch (error) {}
+    applyLanguage(savedLanguage, { persist: false });
+  </script>
+</body>
+</html>
